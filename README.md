@@ -1,5 +1,5 @@
 #### This is dotfiles for my archlinux and i3
-##### Following are some software that I'm using
+##### Following are some software that I'm using or used
 + alacritty/st(simple terminal)
 + zsh/oh-my-zsh
 + polybar for bar pretty
