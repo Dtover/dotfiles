@@ -1,6 +1,6 @@
 "Something important
 "When use this configure file in a new machine
-"after do :PlugInstall
+"first do :PlugInstall
 "then do :checkhealth
 "pay attention to warning part(you might have to install xclip and corret the
 "python_path)
