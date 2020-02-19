@@ -19,5 +19,5 @@
 + neofecth
 + oneko
 + variety
-+ ...
++ i3lock-fancy
 

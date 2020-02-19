@@ -154,4 +154,5 @@ alias vsp="sudo systemctl stop v2ray"
 #alias umdr="udisksctl unmount -b /dev/sda1"
 alias mntr="/home/dreamlocker/.config/zsh/mntr.sh"
 alias doc="ranger /home/dreamlocker/Documents"
+alias unzipc="unzip -O cp936"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

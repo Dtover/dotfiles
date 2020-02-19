@@ -285,3 +285,4 @@ for_window [class="Tk"] floating enable boder pixel none
 for_window [class="Variety"] floating enable boder pixel none
 for_window [class="uTools"] floating enable boder pixel none
 #for_window [class="mpv"] floating enable boder pixel none
+for_window [class="qq"] floating enable boder pixel none
