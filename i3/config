@@ -24,7 +24,8 @@ exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id ~/.config/i3/tap-to-click.sh 
 exec_always --no-startup-id ~/.config/i3/inverse-scroll.sh 
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id variety 
+# exec_always --no-startup-id variety 
+exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/40.jpg
 exec_always --no-startup-id compton -b
 # exec_always --no-startup-id conky
 # exec_always --no-startup-id albert
@@ -220,19 +221,17 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-## Start i3bar to display a workspace bar (plus the system information i3status if available)
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	# i3bar_command i3bar
-	status_command i3status -c ~/.config/i3status/config
-	# status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+	# status_command i3status -c ~/.config/i3status/config
+	status_command i3blocks -c ~/.config/i3blocks/config
 	position bottom
 
-##  please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-##	tray_output primary
-##	tray_output eDP1
+#   please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+#	tray_output primary
+#	tray_output eDP1
 
-	# bindsym button4 nop
-	# bindsym button5 nop
     font xft:Source Code Pro 9
 	strip_workspace_numbers yes
 
@@ -250,14 +249,6 @@ bar {
     }
 }
 
-#Start the applications from the assigned wordspace
-
-# Start r to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-#        status_command i3status
-#}
-#
 # Automatically make a specific window show up on a specific workspace
 # assign [class="Firefox"] 2:Browser
 assign [class="chrome"] 2:Browser
