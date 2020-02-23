@@ -25,7 +25,7 @@ exec_always --no-startup-id ~/.config/i3/tap-to-click.sh
 exec_always --no-startup-id ~/.config/i3/inverse-scroll.sh 
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id variety 
-exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/40.jpg
+exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/42.jpg
 exec_always --no-startup-id compton -b
 # exec_always --no-startup-id conky
 # exec_always --no-startup-id albert
@@ -223,7 +223,8 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	# i3bar_command i3bar
+	# add -t to and set background color as #00000000 to make i3bar transparent
+	i3bar_command i3bar -t
 	# status_command i3status -c ~/.config/i3status/config
 	status_command i3blocks -c ~/.config/i3blocks/config
 	position bottom
@@ -236,14 +237,14 @@ bar {
 	strip_workspace_numbers yes
 
     colors {
-        background #202133
+        background #00000000
         statusline #F9FAF9
         separator  #454947
 
 #                          border  backgr. text
-        focused_workspace  #F9FAF9 #21CC71 #292F34
-        active_workspace   #595B5B #21CC71 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
+        focused_workspace  #F9FAF9 #6e9ed5 #292F34
+        active_workspace   #595B5B #6e9ed5 #FDF6E3
+        inactive_workspace #aaaaaa #444444 #EEE8D5
         binding_mode       #16a085 #2C2C2C #F9FAF9
         urgent_workspace   #16a085 #FDF6E3 #E5201D
     }
