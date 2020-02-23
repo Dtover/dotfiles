@@ -1,0 +1,9 @@
+#!/bin/sh
+CPU_usage=`free -h | grep Mem: | awk '{print $3 "/" $7}'`
+CPU_percentage=`free -h | awk '/^Mem:/{print $3 / $7 * 100}' | cut -c 1-5`
+CPU="💻$CPU_usage"
+case "$BLOCK_BUTTON" in
+	1|4) CPU="💻$CPU_percentage%";;
+	3|5) CPU="💻$CPU_usage";;
+esac
+echo $CPU

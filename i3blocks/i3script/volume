@@ -1,0 +1,21 @@
+#!/bin/sh
+volume=`pamixer --get-volume`
+case $BLOCK_BUTTON in
+	4) volume=`pamixer -i 5; pamixer --get-volume`;;
+	5) volume=`pamixer -d 5; pamixer --get-volume`;;
+esac
+if [[ `pamixer --get-mute` == "true" ]];then
+	echo "🔇 muted ($volume%)"
+	echo "🔇 muted ($volume%)"
+	echo "#FF0000"
+else
+	if [ "$volume" -gt "50" ]; then
+		icon="🔊"
+	elif [ "$volume" -lt "15" ]; then
+		icon="🔈"
+	else
+		icon="🔉"
+	fi
+	printf "%s %s%%\\n" "$icon" "$volume"
+fi
+
