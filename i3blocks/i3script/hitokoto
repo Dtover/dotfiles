@@ -1,0 +1,11 @@
+#!/bin/bash
+case $BLOCK_BUTTON in
+	1) notify-send $(jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json);;
+esac
+
+if [[ $(./Net.sh | wc -l) -eq 1 ]];then
+	curl -o ~/Documents/hitokoto/hitokoto.json https://v1.hitokoto.cn ;
+	jq -r .id ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
+	jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
+fi
+

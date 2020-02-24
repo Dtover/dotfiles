@@ -1,13 +1,22 @@
-full_text=<=
+full_text=↩
 align=center
-color=#FFFFFF
+#color=#FFFFFF
 separator=false
 separator_block_width=7
 
+
 [mpv]
 command=./i3script/mpc
-label=🎼
+label=🎶
 interval=2
+
+[separator]
+
+[hitokoto]
+full_text=<b><span color="#09419F">Hitokoto</span></b>
+markup=pango
+command=./i3script/hitokoto
+interval=3600
 
 [separator]
 

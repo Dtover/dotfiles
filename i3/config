@@ -23,6 +23,8 @@ gaps inner 5
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id ~/.config/i3/tap-to-click.sh 
 exec_always --no-startup-id ~/.config/i3/inverse-scroll.sh 
+exec_always --no-startup-id ~/.config/i3/NetMan.sh
+
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id variety 
 exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/42.jpg
@@ -48,6 +50,9 @@ bindsym $mod+i exec --no-startup-id /usr/local/idea-IU-192.6262.58/bin/idea.sh
 
 # Run Cloud Music
 bindsym $mod+m exec --no-startup-id netease-cloud-music
+
+# mpc command
+bindsym $mod+p exec --no-startup-id mpc toggle
 
 # switch between the current and the previously focused one
 bindsym $mod+a workspace back_and_forth

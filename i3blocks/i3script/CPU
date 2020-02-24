@@ -3,7 +3,11 @@ CPU_usage=`free -h | grep Mem: | awk '{print $3 "/" $7}'`
 CPU_percentage=`free -h | awk '/^Mem:/{print $3 / $7 * 100}' | cut -c 1-5`
 CPU="💻$CPU_usage"
 case "$BLOCK_BUTTON" in
-	1|4) CPU="💻$CPU_percentage%";;
-	3|5) CPU="💻$CPU_usage";;
+	1) notify-send "Most memmory usage:
+$(ps axch -o cmd:15,%mem --sort=-%mem | head)";;
+	3) notify-send "Most cpu usage:
+$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)";;
+	4) CPU="💻$CPU_percentage%";;
+	5) CPU="💻$CPU_usage";;
 esac
 echo $CPU

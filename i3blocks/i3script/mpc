@@ -5,8 +5,15 @@ case $BLOCK_BUTTON in
 	4) mpc prev | filter;;
 	5) mpc next | filter;;
 esac
-[[ `mpc status | wc -l` == 1 ]] && echo "no music"
-song_name=`mpc status | head -n 1 | cut -d '/' -f2 | cut -d '.' -f1`
-echo $song_name
-
-
+icon=⏹
+if [[ `mpc status | wc -l` -le 1 ]];then
+	echo "no music"
+else
+	state=`mpc status | grep '\[' | cut -d '[' -f2 | cut -d ']' -f1`
+	case $state in
+		playing) icon=ﱘ;;
+		paused) icon=ﱙ;;
+	esac
+	song_name=`mpc status | head -n 1 | cut -d '/' -f2 | cut -d '.' -f1`
+	echo "$song_name $icon"
+fi

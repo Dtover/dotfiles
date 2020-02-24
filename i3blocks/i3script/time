@@ -1,8 +1,10 @@
 #!/bin/sh
 time="🕒$(date +%T)"
 case "$BLOCK_BUTTON" in
-    1|4)time="📅$(date '+%F, %a')";;
-    3|5)time="🕒$(date +%T)";;
+	1) notify-send "$(~/Desktop/cs.sh)";;
+	2) notify-send "";;
+    4) time="📅$(date '+%F, %a')";;
+    5) time="🕒$(date +%T)";;
 esac
 echo $time
 
