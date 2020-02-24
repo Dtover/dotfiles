@@ -27,7 +27,8 @@ exec_always --no-startup-id ~/.config/i3/NetMan.sh
 
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id variety 
-exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/42.jpg
+# exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/54.jpg
+exec_always --no-startup-id ~/.config/i3/BGImage.sh
 exec_always --no-startup-id compton -b
 # exec_always --no-startup-id conky
 # exec_always --no-startup-id albert
@@ -46,13 +47,15 @@ bindsym $mod+y exec --no-startup-id xmodmap ~/.Xmodmap
 bindsym $mod+shift+p exec --no-startup-id i3lock-fancy
 
 # RUN IDEA
-bindsym $mod+i exec --no-startup-id /usr/local/idea-IU-192.6262.58/bin/idea.sh
+# bindsym $mod+i exec --no-startup-id /usr/local/idea-IU-192.6262.58/bin/idea.sh
 
 # Run Cloud Music
 bindsym $mod+m exec --no-startup-id netease-cloud-music
 
 # mpc command
 bindsym $mod+p exec --no-startup-id mpc toggle
+bindsym $mod+shift+i exec --no-startup-id mpc prev
+bindsym $mod+shift+o exec --no-startup-id mpc next
 
 # switch between the current and the previously focused one
 bindsym $mod+a workspace back_and_forth

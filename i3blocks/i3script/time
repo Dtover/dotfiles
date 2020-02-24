@@ -1,8 +1,8 @@
 #!/bin/sh
 time="🕒$(date +%T)"
 case "$BLOCK_BUTTON" in
-	1) notify-send "$(~/Desktop/cs.sh)";;
-	2) notify-send "";;
+	1) notify-send "$( ~/.config/i3blocks/i3script/class_schedule )";;
+	3) notify-send "$( ~/.config/i3blocks/i3script/class_schedule_full )";;
     4) time="📅$(date '+%F, %a')";;
     5) time="🕒$(date +%T)";;
 esac

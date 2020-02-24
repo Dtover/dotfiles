@@ -1,3 +1,4 @@
+#command=~/.config/i3blocks/i3script/$BLOCK_NAME
 full_text=↩
 align=center
 #color=#FFFFFF
@@ -5,7 +6,7 @@ separator=false
 separator_block_width=7
 
 
-[mpv]
+[mpc]
 command=./i3script/mpc
 label=🎶
 interval=2
@@ -27,7 +28,7 @@ interval=10
 [separator]
 
 [ip]
-command=./i3script/ip.sh
+command=./i3script/ip
 interval=30
 
 [separator]
@@ -39,7 +40,7 @@ interval=1
 [separator]
 
 [battery]
-command=./i3script/battery.sh
+command=./i3script/battery
 interval=5
 
 [separator]
