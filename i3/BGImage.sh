@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is used to change the background image  
 path="/home/dreamlocker/Pictures/BG_images/"
 num=$(ls $path | wc -l)
 let image="$[$RANDOM%100]"

@@ -1,11 +1,16 @@
 #!/bin/bash
 case $BLOCK_BUTTON in
-	1) notify-send $(jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json);;
+	1) notify-send "$( ~/.config/i3blocks/i3script/Randomlin.sh )";;
+	2) 
+		echo "$( ~/.config/i3blocks/i3script/Randomlin.sh )"
+		echo "$( ~/.config/i3blocks/i3script/Randomlin.sh )"
+		echo "#CEB03E";;
+	3) notify-send "$(cat ~/Documents/hitokoto/hitokoto_collection.md | tail -n 10)";;
 esac
 
-if [[ $(~/.config/i3blocks/i3script/Net.sh | wc -l) -eq 1 ]];then
-	curl -o ~/Documents/hitokoto/hitokoto.json https://v1.hitokoto.cn ;
-	jq -r .id ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
-	jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
-fi
+#if [[ $(~/.config/i3blocks/i3script/Net.sh | wc -l) -eq 1 && $(expr $(date +%S) % 2) -eq 0 ]];then
+	#curl -o ~/Documents/hitokoto/hitokoto.json https://v1.hitokoto.cn ;
+	#jq -r .id ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
+	#jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
+#fi
 

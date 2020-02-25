@@ -2,52 +2,58 @@
 full_text=↩
 align=center
 #color=#FFFFFF
-separator=false
-separator_block_width=7
+#separator=false
+#separator_block_width=7
 
+[currentwin]
+command=./i3script/currentwin
+min_width=500
+align=left
+interval=1
+
+[hitokoto]
+full_text=<b><span color="#CEB03E">Hitokoto</span></b>
+markup=pango
+command=./i3script/hitokoto
+min_width=800
+align=center
+
+#[separator]
 
 [mpc]
 command=./i3script/mpc
-label=🎶
+label=🎵
 interval=2
+min_width=350
 
-[separator]
-
-[hitokoto]
-full_text=<b><span color="#09419F">Hitokoto</span></b>
-markup=pango
-command=./i3script/hitokoto
-interval=3600
-
-[separator]
+#[separator]
 
 [CPU]
 command=./i3script/CPU
+min_width=120
 interval=10
 
-[separator]
+#[separator]
 
-[ip]
-command=./i3script/ip
-interval=30
+#[ip]
+#command=./i3script/ip
+#interval=30
 
-[separator]
+#[separator]
 
-[volume]
-command=./i3script/volume
-interval=1
+#[volume]
+#command=./i3script/volume
+#interval=1
 
-[separator]
+#[separator]
 
-[battery]
-command=./i3script/battery
-interval=5
+#[battery]
+#command=./i3script/battery
+#interval=5
 
-[separator]
+#[separator]
 
 [time]
 command=./i3script/time
 interval=5
-
-
 

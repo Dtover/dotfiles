@@ -1,13 +1,16 @@
 #!/bin/sh
-
 case $BLOCK_BUTTON in
 	1) mpc toggle | filter;;
+	3) setsid st -e ncmpcpp 2> /dev/null ;;
 	4) mpc prev | filter;;
 	5) mpc next | filter;;
 esac
 icon=⏹
 if [[ `mpc status | wc -l` -le 1 ]];then
-	echo "no music"
+	#mpd 2> /dev/null;
+	#mpc add CloudMusic > /dev/null;
+	#mpc random on;
+	echo "no music playing"$icon
 else
 	state=`mpc status | grep '\[' | cut -d '[' -f2 | cut -d ']' -f1`
 	case $state in

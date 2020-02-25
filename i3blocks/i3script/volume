@@ -1,6 +1,7 @@
 #!/bin/sh
 volume=`pamixer --get-volume`
 case $BLOCK_BUTTON in
+	1|3) pamixer -t;;
 	4) volume=`pamixer -i 5; pamixer --get-volume`;;
 	5) volume=`pamixer -d 5; pamixer --get-volume`;;
 esac

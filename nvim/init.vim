@@ -153,6 +153,27 @@ func! CompileRunGcc()
   endif
 endfunc
 
+"Solve the prolem when input Chinese
+let g:input_toggle = 0
+function! Fcitx2en()
+let s:input_status = system("fcitx-remote")
+if s:input_status == 2
+let g:input_toggle = 1
+let l:a = system("fcitx-remote -c")
+endif
+endfunction
+
+function! Fcitx2zh()
+let s:input_status = system("fcitx-remote")
+if s:input_status != 2 && g:input_toggle == 1
+let l:a = system("fcitx-remote -o")
+let g:input_toggle = 0
+endif
+endfunction
+
+set timeoutlen=150
+autocmd InsertLeave * call Fcitx2en()
+autocmd InsertEnter * call Fcitx2zh()
 
 "Press space twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <ESC>/<++><CR>:nohlsearch<CR>c4l
@@ -458,3 +479,4 @@ function! NearestMethodOrFunction() abort
 endfunction
 set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
