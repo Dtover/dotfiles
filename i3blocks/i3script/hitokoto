@@ -1,16 +1,26 @@
 #!/bin/bash
+# a simple script to get a sentence from hitokoto.com and jinrishici.com
+Rnum=$[$RANDOM %2]
+if [[ -z $Rnum ]];then
+	word=$( ~/.config/i3blocks/i3script/RandomLineforhi.sh )
+else
+	word=$( ~/.config/i3blocks/i3script/RandomLineforJin.sh )
+fi
 case $BLOCK_BUTTON in
-	1) notify-send "$( ~/.config/i3blocks/i3script/Randomlin.sh )";;
-	2) 
-		echo "$( ~/.config/i3blocks/i3script/Randomlin.sh )"
-		echo "$( ~/.config/i3blocks/i3script/Randomlin.sh )"
-		echo "#CEB03E";;
-	3) notify-send "$(cat ~/Documents/hitokoto/hitokoto_collection.md | tail -n 10)";;
+	1) 	
+		sh ~/Documents/hitokoto/gethitokoto.sh ;
+		word=$(jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json);;
+	2) 	;;
+	3) 	
+		sh ~/Documents/hitokoto/jinrishici/getjinrishici.sh ;
+		content=$(jq -r .content ~/Documents/hitokoto/jinrishici/jinrishici.json)
+		name=$(jq -r .origin ~/Documents/hitokoto/jinrishici/jinrishici.json)
+		author=$(jq -r .author ~/Documents/hitokoto/jinrishici/jinrishici.json)
+		word=$(printf "%s -%s《%s》\n" "$content" "$author" "$name");; 
+	4) 	word=$( ~/.config/i3blocks/i3script/RandomLineforhi.sh );;
+	5) 	word=$( ~/.config/i3blocks/i3script/RandomLineforJin.sh );;
 esac
-
-#if [[ $(~/.config/i3blocks/i3script/Net.sh | wc -l) -eq 1 && $(expr $(date +%S) % 2) -eq 0 ]];then
-	#curl -o ~/Documents/hitokoto/hitokoto.json https://v1.hitokoto.cn ;
-	#jq -r .id ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
-	#jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json >> ~/Documents/hitokoto/hitokoto_collection.md ;
-#fi
+echo "$word"
+echo "$word"
+echo "#CEB03E"
 

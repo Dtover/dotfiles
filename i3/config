@@ -173,6 +173,7 @@ mode "$mode_launcher" {
 	# change keyboard layout
 	bindsym x exec --no-startup-id xmodmap ~/.Xmodmap
 	bindsym t exec --no-startup-id ~/.config/i3/tap-to-click.sh
+	bindsym l exec --no-startup-id st -e ~/Desktop/DailyTODO/todo.sh
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
@@ -350,5 +351,6 @@ for_window [class="Tk"] floating enable boder pixel none
 for_window [class="Variety"] floating enable boder pixel none
 for_window [class="uTools"] floating enable boder pixel none
 for_window [class="baidunetdisk"] floating enable boder pixel none
+for_window [class="St" title="/home/dreamlocker/Desktop/DailyTODO/todo.sh"] floating enable boder pixel none
 #for_window [class="mpv"] floating enable boder pixel none
 #for_window [class="mpv"] resize set 1280 920

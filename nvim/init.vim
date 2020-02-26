@@ -56,7 +56,8 @@ set shortmess+=c
 set signcolumn=yes
 "copy to system clipboard
 set clipboard+=unnamedplus
-vnoremap Y "+y
+"vnoremap Y "+y
+noremap Y y$
 
 set mouse=a
 

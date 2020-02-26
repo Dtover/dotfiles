@@ -1,9 +1,9 @@
 #command=~/.config/i3blocks/i3script/$BLOCK_NAME
-full_text=↩
+#full_text=↩
 align=center
 #color=#FFFFFF
-#separator=false
-#separator_block_width=7
+separator=false
+separator_block_width=6
 
 [currentwin]
 command=./i3script/currentwin
@@ -13,8 +13,10 @@ interval=1
 
 [hitokoto]
 full_text=<b><span color="#CEB03E">Hitokoto</span></b>
+short_text=<b><span color="#CEB03E">Hitokoto</span></b>
 markup=pango
 command=./i3script/hitokoto
+max_width=800
 min_width=800
 align=center
 
@@ -24,16 +26,22 @@ align=center
 command=./i3script/mpc
 label=🎵
 interval=2
-min_width=350
+min_width=410
 
 #[separator]
 
-[CPU]
-command=./i3script/CPU
-min_width=120
-interval=10
+#[CPU]
+#command=./i3script/CPU
+#min_width=120
+#interval=10
 
-#[separator]
+[todo]
+command=./i3script/todo
+min_width=70
+interval=3600
+
+
+[separator]
 
 #[ip]
 #command=./i3script/ip
