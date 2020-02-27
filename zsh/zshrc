@@ -158,4 +158,5 @@ alias dow="ranger /home/dreamlocker/Downloads"
 alias unzipc="unzip -O cp936"
 alias cls="~/Desktop/cs.sh"
 alias bgp="sxiv -ft ~/Pictures/BG_images/*.jpg ~/Pictures/BG_images/*.jpeg"
+alias e="exit"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

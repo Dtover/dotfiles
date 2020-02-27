@@ -21,14 +21,14 @@ gaps inner 5
 		
 # Autorun while start i3 
 exec_always --no-startup-id xmodmap ~/.Xmodmap
-exec_always --no-startup-id ~/.config/i3/tap-to-click.sh 
-exec_always --no-startup-id ~/.config/i3/inverse-scroll.sh 
-exec_always --no-startup-id ~/.config/i3/NetMan.sh
-exec_always --no-startup-id ~/.config/i3/mpdautostart.sh
+exec_always --no-startup-id ~/.config/i3/scripts/tap-to-click.sh 
+exec_always --no-startup-id ~/.config/i3/scripts/inverse-scroll.sh 
+exec_always --no-startup-id ~/.config/i3/scripts/NetMan.sh
+exec_always --no-startup-id ~/.config/i3/scripts/mpdautostart.sh
 exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/24.jpg
-# exec_always --no-startup-id ~/.config/i3/BGImage.sh
-exec_always --no-startup-id compton -b
+# exec_always --no-startup-id ~/.config/i3/scripts/BGImage.sh
 exec_always --no-startup-id utools
+exec_always --no-startup-id ~/.config/i3/scripts/compton
 exec_always --no-startup-id fcitx
 exec_always --no-startup-id dunst
 # exec_always --no-startup-id flameshot
@@ -43,12 +43,23 @@ bindsym $mod+shift+p exec --no-startup-id i3lock-fancy
 # bindsym $mod+i exec --no-startup-id /usr/local/idea-IU-192.6262.58/bin/idea.sh
 
 # Run Cloud Music
-bindsym $mod+m exec --no-startup-id netease-cloud-music
+# bindsym $mod+m exec --no-startup-id netease-cloud-music
+
+# start a terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+# bindsym $mod+Return exec --no-startup-id st
+
+# start a browser
+bindsym $mod+c exec --no-startup-id google-chrome-stable
+
+# connect to my server in st(simple terminal)
+bindsym $mod+shift+s exec --no-startup-id st -e ssh root@47.99.77.16
 
 # mpc command
-bindsym $mod+p exec --no-startup-id mpc toggle
-bindsym $mod+shift+i exec --no-startup-id mpc prev
-bindsym $mod+shift+o exec --no-startup-id mpc next
+bindsym $mod+p exec --no-startup-id mpc toggle && pkill -RTMIN+10 i3blocks
+bindsym $mod+shift+i exec --no-startup-id mpc prev && pkill -RTMIN+10 i3blocks
+bindsym $mod+shift+o exec --no-startup-id mpc next && pkill -RTMIN+10 i3blocks
+
 
 # switch between the current and the previously focused one
 bindsym $mod+a workspace back_and_forth
@@ -71,8 +82,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -85,16 +96,6 @@ focus_follows_mouse no
 floating_maximum_size 1920 x 1200 
 floating_minimum_size 100 x 100
 
-# start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty
-# bindsym $mod+Return exec --no-startup-id st
-
-# start a browser
-bindsym $mod+c exec --no-startup-id google-chrome-stable
-
-# connect to my server in st(simple terminal)
-bindsym $mod+shift+s exec --no-startup-id st -e ssh root@47.99.77.16
-
 # kill focused window
 bindsym $mod+shift+q kill
 
@@ -103,6 +104,8 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindsym $mod+d exec --no-startup-id rofi -show run
 bindsym $mod+shift+d exec --no-startup-id ~/Scripts/Rofiunicode
 
+# run todo script to build a daily todolist
+bindsym $mod+t exec --no-startup-id st -e ~/Desktop/DailyTODO/todo.sh
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -143,7 +146,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -160,24 +163,34 @@ bindsym $mod+space focus mode_toggle
 #bindsym $mod+d focus child
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+m move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+bindsym $mod+m scratchpad show
 
+# make a window sticky
+bindsym $mod+shift+plus sticky toggle
+# quickly resize the window and move the window (on when window is floating mode)
+bindsym $mod+minus resize set 640 480; move position 1200 50
+bindsym $mod+plus resize set 1200 800; move position 400 180
+ 
 # Test
+bindsym $mod+x move child, kill
 # bindsym $mod+x move position center
 bindsym $mod+o mode "$mode_launcher"
 mode "$mode_launcher" {
+	bindsym j exec --no-startup-id ~/.config/i3/scripts/todo-notify.sh ;; exec mode "default"
+	bindsym k exec --no-startup-id ~/.config/i3/scripts/class-notify.sh
     bindsym m exec netease-cloud-music
+	bindsym t exec ~/.config/i3/scripts/telegramstart
 	# change keyboard layout
 	bindsym x exec --no-startup-id xmodmap ~/.Xmodmap
-	bindsym t exec --no-startup-id ~/.config/i3/tap-to-click.sh
-	bindsym l exec --no-startup-id st -e ~/Desktop/DailyTODO/todo.sh
+	#bindsym t exec --no-startup-id ~/.config/i3/tap-to-click.sh
+	#bindsym v exec --no-startup-id ~/.config/i3/inverse-scroll.sh
     bindsym Escape mode "default"
     bindsym Return mode "default"
+	bindsym $mod+o mode "default"
 }
-
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -235,6 +248,11 @@ mode "resize" {
         bindsym j resize grow height 5 px or 5 ppt
         bindsym k resize shrink height 5 px or 5 ppt
         bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym $mod+h resize shrink width 20 px or 20 ppt
+        bindsym $mod+j resize grow height 20 px or 20 ppt
+        bindsym $mod+k resize shrink height 20 px or 20 ppt
+        bindsym $mod+l resize grow width 20 px or 20 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 15 px or 15 ppt
@@ -295,7 +313,6 @@ bar {
     }
 }
 
-
 bar {
 	id bar-1
 	# add -t to and set background color as #00000000 to make i3bar transparent
@@ -317,14 +334,15 @@ bar {
         focused_workspace  #F9FAF9 #6e9ed5 #292F34
         active_workspace   #595B5B #6e9ed5 #FDF6E3
         inactive_workspace #aaaaaa #444444 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
+        binding_mode       #6e9ed5 #2C2C2C #F9FAF9
+        urgent_workspace   #6e9ed5 #2C2C2C #CEB03E
     }
 }
 
-
-
 # Automatically make a specific window show up on a specific workspace
+# to get the class or instance use command
+# xprop | grep "WM_CLASS" 
+# the first is instance and the rest is class
 # assign [class="Firefox"] 2:Browser
 assign [class="chrome"] 2:Browser
 assign [class="netease-cloud-music"] 10:Music
@@ -352,5 +370,5 @@ for_window [class="Variety"] floating enable boder pixel none
 for_window [class="uTools"] floating enable boder pixel none
 for_window [class="baidunetdisk"] floating enable boder pixel none
 for_window [class="St" title="/home/dreamlocker/Desktop/DailyTODO/todo.sh"] floating enable boder pixel none
+for_window [class="TelegramDesktop"] floating enable boder pixel none
 #for_window [class="mpv"] floating enable boder pixel none
-#for_window [class="mpv"] resize set 1280 920

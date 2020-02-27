@@ -1,7 +1,7 @@
 #!/bin/bash
 # a simple script to get a sentence from hitokoto.com and jinrishici.com
 Rnum=$[$RANDOM %2]
-if [[ -z $Rnum ]];then
+if [[ $Rnum -eq 0 ]];then
 	word=$( ~/.config/i3blocks/i3script/RandomLineforhi.sh )
 else
 	word=$( ~/.config/i3blocks/i3script/RandomLineforJin.sh )
@@ -10,7 +10,10 @@ case $BLOCK_BUTTON in
 	1) 	
 		sh ~/Documents/hitokoto/gethitokoto.sh ;
 		word=$(jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json);;
-	2) 	;;
+	2) 
+		word=$(jq -r .hitokoto ~/Documents/hitokoto/hitokoto.json)
+		notify-send "$(jq -r .from ~/Documents/hitokoto/hitokoto.json)";;
+		
 	3) 	
 		sh ~/Documents/hitokoto/jinrishici/getjinrishici.sh ;
 		content=$(jq -r .content ~/Documents/hitokoto/jinrishici/jinrishici.json)

@@ -86,7 +86,7 @@ case $day in
 		fi
 		;;
 	Thu) 
-		echo "No class today! Check that whether you get some work to handle with";;
+		echo -e "No class today! Check that whether\n you get some work to handle with";;
 	Fri)
 		if [[ $time -lt 480 ]]; then
 			echo "1-2: Compile Principle"

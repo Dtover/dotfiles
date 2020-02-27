@@ -1,5 +1,5 @@
 #!/bin/bash
 cw=$(xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) WM_CLASS WM_NAME | awk -F '"' '{print $2}' )
-[[ -n $(echo $cw | grep "Google") ]] && echo $cw | sed 's/ - Google Chrome//g'
+[[ -n $(echo $cw | grep -i "google") ]] && echo $cw | sed 's/ - Google Chrome//g'
 [[ -z $cw  ]] && echo "Nothing here !"
 echo $cw

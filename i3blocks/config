@@ -5,28 +5,43 @@ align=center
 separator=false
 separator_block_width=6
 
-[currentwin]
-command=./i3script/currentwin
+#[currentwin]
+#command=./i3script/currentwin
+#min_width=500
+#align=left
+#interval=1
+
+[pacman-update]
+command=./i3script/austart
+markup=pango
+interval=3600
+#QUIET=true
+#WATCH=^linux.* ^pacman.*
 min_width=500
 align=left
-interval=1
+#BASE_COLOR=#5fff5f
+#UPDATE_COLOR=#FFFF85
+#AUR=true
+LABEL= 
 
 [hitokoto]
-full_text=<b><span color="#CEB03E">Hitokoto</span></b>
-short_text=<b><span color="#CEB03E">Hitokoto</span></b>
-markup=pango
+#full_text=<b><span color="#CEB03E">Hitokoto</span></b>
+#short_text=<b><span color="#CEB03E">Hitokoto</span></b>
+#markup=pango
 command=./i3script/hitokoto
-max_width=800
+#max_width=800
 min_width=800
 align=center
+interval=1800
 
 #[separator]
 
 [mpc]
 command=./i3script/mpc
 label=🎵
-interval=2
-min_width=410
+interval=1
+signal=10
+min_width=420
 
 #[separator]
 
@@ -61,7 +76,7 @@ interval=3600
 
 #[separator]
 
-[time]
-command=./i3script/time
-interval=5
+[class]
+command=./i3script/class
+interval=1800
 

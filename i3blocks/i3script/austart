@@ -1,0 +1,6 @@
+#!/bin/bash
+while [[ $(ping -c 1 baidu.com | wc -l 2> /dev/null) -le 1 ]]
+do
+	echo "" > /dev/null 2>&1
+done
+python3 ~/.config/i3blocks/i3script/arch-update
