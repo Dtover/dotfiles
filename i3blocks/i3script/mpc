@@ -1,9 +1,9 @@
 #!/bin/sh
 case $BLOCK_BUTTON in
-	1) mpc toggle | filter;;
+	1) mpc toggle ;;
 	3) setsid st -e ncmpcpp 2> /dev/null ;;
-	4) mpc prev | filter;;
-	5) mpc next | filter;;
+	4) mpc prev ;;
+	5) mpc next ;;
 esac
 icon=⏹
 if [[ `mpc status | wc -l` -le 1 ]];then

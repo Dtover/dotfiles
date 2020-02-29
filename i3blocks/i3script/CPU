@@ -1,26 +1,14 @@
 #!/bin/sh
-#CPU_usage=`free -h | grep Mem: | awk '{print $3 "/" $7}'`
-#CPU_percentage=`free -m | awk '/^Mem:/{print $3 / $7 * 100}' | cut -c 1-5`
-#CPU="💻$CPU_usage"
-#case "$BLOCK_BUTTON" in
-	#1) notify-send "Most memmory usage:
-#$(ps axch -o cmd:15,%mem --sort=-%mem | head)";;
-	#3) notify-send "Most cpu usage:
-#$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)";;
-	#2) notify-send "$(cat ~/Scripts/"$(date '+%m_%d')")";;
-	#4) CPU="💻$CPU_percentage%";;
-	#5) CPU="💻$CPU_usage";;
-#esac
-#echo $CPU
-
-echo "✅TODO"
+CPU_usage=`free -h | grep Mem: | awk '{print $3 "/" $7}'`
+CPU_percentage=`free -m | awk '/^Mem:/{print $3 / $7 * 100}' | cut -c 1-5`
+CPU="💻$CPU_usage"
 case "$BLOCK_BUTTON" in
-	1) if [[ -f ~/Desktop/DailyTODO/"$(date '+%m_%d')" ]];then
-			notify-send "$(cat ~/Desktop/DailyTODO/"$(date '+%m_%d')")" 
-		else
-			notify-send "NO LIST FOUND ! 
-	Please press right click to build one!"
-		fi
-		;;
-	3) st -e ~/Desktop/DailyTODO/todo.sh 2> /dev/null ;;
+	1) notify-send "Most memmory usage:
+$(ps axch -o cmd:15,%mem --sort=-%mem | head)" 2> /dev/null ;;
+	3) notify-send "Most cpu usage:
+$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" 2> /dev/null;;
+	4) CPU="💻$CPU_percentage%";;
+	5) CPU="💻$CPU_usage";;
 esac
+echo $CPU
+

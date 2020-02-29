@@ -52,8 +52,9 @@ min_width=420
 
 [todo]
 command=./i3script/todo
-min_width=70
+min_width=60
 interval=3600
+align=center
 
 
 [separator]
@@ -78,5 +79,7 @@ interval=3600
 
 [class]
 command=./i3script/class
+min_width=100
+align=center
 interval=1800
 

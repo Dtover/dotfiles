@@ -42,7 +42,11 @@ noremap <LEADER>nn :set nonu<CR>:set norelativenumber<CR>
 noremap <LEADER>NN :set nu<CR>:set relativenumber<CR>
 
 " Open the vimrc file anytime
-noremap <LEADER>vi :tab e ~/.config/nvim/init.vim<CR>
+noremap <LEADER>vi :tabe ~/.config/nvim/init.vim<CR>
+
+"Open the i3 config file anytime
+noremap <LEADER>ii :tabe ~/.config/i3/config<CR>
+
 
 "set cursorline
 set wrap
@@ -172,7 +176,7 @@ let g:input_toggle = 0
 endif
 endfunction
 
-set timeoutlen=150
+set timeoutlen=1000
 autocmd InsertLeave * call Fcitx2en()
 autocmd InsertEnter * call Fcitx2zh()
 
