@@ -1,0 +1,27 @@
+#!/bin/bash
+# This simple script is used to auto generate makefile for a c or cpp file
+file=$1
+[[ -f "makefile" ]] && rm 'makefile'; touch 'makefile'
+#[[ -f "makefile" ]] || touch "makefile"
+echo "src = $file" >> makefile
+echo "out = ${file%.*}.out" >> makefile
+echo "${file%.*}.out: ${file}" >> makefile
+echo "r:" >> makefile
+case ${file#*.} in
+	c) echo -e "\tgcc -o \$(out) \$(src)" >> makefile ;;
+	cpp) echo -e "\tg++ -o \$(out) \$(src)" >> makefile ;;
+	*) 	echo "can not judge file type, choose file again"
+		rm makefile	
+		echo "Generate makefile failedly!"
+		;;
+esac
+#if [[ ${file#.*} == "cpp" ]];then
+	#echo -e "\tgcc -o \$(out) \$(src)" >> makefile
+#else
+	#echo -e "\tg++ -o \$(out) \$(src)" >> makefile
+#fi
+#echo -e "\tgcc -o \$(out) \$(src)" >> makefile
+echo -e "\t./\$(out)" >> makefile
+echo "c:" >> makefile
+echo -e "\trm ./\$(out)" >> makefile
+echo "Generate makefile successfully!"

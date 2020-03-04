@@ -1,0 +1,3 @@
+#!/bin/bash
+[[ $(printf "NO\\nYES" | rofi -dmenu -width 30 -l 2 -p "$1") = "YES" ]] && $2
+

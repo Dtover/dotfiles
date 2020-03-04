@@ -1,0 +1,2 @@
+#!/bin/bash
+rofi -dmenu -input /dev/null -p "input your password:" -password -l 0 -width 35
