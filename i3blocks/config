@@ -22,7 +22,7 @@ align=left
 #BASE_COLOR=#5fff5f
 #UPDATE_COLOR=#FFFF85
 #AUR=true
-LABEL= 
+LABEL=📦 
 
 [hitokoto]
 #full_text=<b><span color="#CEB03E">Hitokoto</span></b>
@@ -37,7 +37,7 @@ interval=1800
 #[separator]
 
 [mpc]
-command=./i3script/mpc
+command=./i3script/music
 label=🎵
 interval=1
 signal=10

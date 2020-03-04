@@ -14,7 +14,7 @@ exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id ~/.config/i3/scripts/tap-to-click.sh 
 exec_always --no-startup-id ~/.config/i3/scripts/inverse-scroll.sh 
 exec_always --no-startup-id ~/.config/i3/scripts/NetMan.sh
-exec_always --no-startup-id ~/.config/i3/scripts/mpdautostart.sh
+# exec_always --no-startup-id ~/.config/i3/scripts/mpdautostart.sh
 exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/24.jpg
 # exec_always --no-startup-id ~/.config/i3/scripts/BGImage.sh
 exec_always --no-startup-id utools
@@ -65,12 +65,12 @@ bindsym $mod+shift+a move container to workspace back_and_forth
 
 # bar toggle, hide or show
 bindsym $mod+b  bar mode toggle bar-0
-#bindsym $mod+shift+b nop
+bindsym $mod+shift+b bar mode toggle bar-1
 
 # start a browser
 bindsym $mod+c exec --no-startup-id google-chrome-stable
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c nop
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id dmenu_run
@@ -80,39 +80,42 @@ bindsym $mod+shift+d exec --no-startup-id ~/Scripts/Rofiunicode
 # split toggle
 bindsym $mod+e layout toggle split
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id srl
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-#bindsym $mod+shift+f nop
+bindsym $mod+shift+f reload
 
-bindsym $mod+g
+# use betterlockscreen to lock
+bindsym $mod+g exec --no-startup-id betterlockscreen -l blur
 # Screen Lock
 bindsym $mod+shift+g exec --no-startup-id i3lock-fancy
 
 #binsym $mod+n nop
 # mpv next
 bindsym $mod+shift+n exec --no-startup-id mpc next && pkill -RTMIN+10 i3blocks
-bindsym $mod+ctrl+n exec --no-startup-id mpc volume +10 && pill -RTMIN+10 i3blocks
+bindsym $mod+ctrl+n exec --no-startup-id mpc volume +10 && pkill -RTMIN+10 i3blocks
 
 # RUN IDEA
-# bindsym $mod+i exec --no-startup-id /usr/local/idea-IU-192.6262.58/bin/idea.sh
+#bindsym $mod+i nop
 #bindsym $mod+shift+i nop
 
 # Show the first scratchpad window
 bindsym $mod+m scratchpad show
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+m floating enable; resize set 1200 800; move position center; move scratchpad; scratchpad show
+#bindsym $mod+Shift+m floating enable; resize set 1200 800; move position center; move scratchpad; scratchpad show
+bindsym $mod+shift+m move scratchpad
 
-#bindsym $mod+o nop
 #bindsym $mod+shift+o nop
+bindsym $mod+o floating enable; resize set 950 600; move position 900 550
 
 
 # mpc toggle
 bindsym $mod+p exec --no-startup-id mpc toggle && pkill -RTMIN+10 i3blocks
 # mpc prev
 bindsym $mod+shift+p exec --no-startup-id mpc prev && pkill -RTMIN+10 i3blocks
-bindsym $mod+ctrl+p exec --no-startup-id mpc volume -10 && pill -RTMIN+10 i3blocks
+bindsym $mod+ctrl+p exec --no-startup-id mpc volume -10 && pkill -RTMIN+10 i3blocks
 
 # kill focused window
 #bindsym $mod+q nop
@@ -187,8 +190,8 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+space floating toggle
 
 # quickly resize the window and move the window (on when window is floating mode)
-bindsym $mod+minus floating enable; resize set 640 480; move position 1200 50; focus mode_toggle
-#bindsym $mod+shift+minus nop
+bindsym $mod+minus floating enable; resize set 640 480; move position 1200 50
+#bindsym $mod+shift+minus floating enable; resize set 950 600; move position 900 550
 
 # resize a window and set it to the center of the screen
 bindsym $mod+plus floating enable; resize set 1200 800; move position center
@@ -200,9 +203,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-# build a mode_launcher mode
-bindsym $mod+semicolon mode "$mode_launcher"
-mode "$mode_launcher" {
+# build a launcher mode
+bindsym $mod+semicolon mode "$launcher"
+mode "$launcher" {
 	# send notification
 	bindsym j exec --no-startup-id ~/.config/i3/scripts/todo-notify.sh
 	bindsym k exec --no-startup-id notify-send "$(~/.config/i3blocks/i3script/class_schedule)"
@@ -215,6 +218,8 @@ mode "$mode_launcher" {
 	bindsym t exec --no-startup-id ~/.config/i3/scripts/telegramstart; mode "default"
 	# Run sxiv to change background image
 	bindsym p exec --no-startup-id sxiv -N bgp -t ~/Pictures/BG_images/*.jpg; mode "default"
+	# Run ncmpcpp in st
+	bindsym n exec --no-startup-id st -n music -e ncmpcpp; mode "default"
 	# Run IDEA
 	bindsym i exec --no-startup-id /opt/idea-IU-193.6494.35/bin/idea.sh; mode "default"
 	# change keyboard layout
@@ -369,6 +374,7 @@ for_window [class="Variety"] floating enable boder pixel none
 for_window [class="uTools"] floating enable boder pixel none
 for_window [class="baidunetdisk"] floating enable boder pixel none
 for_window [class="St" instance="todo"] floating enable boder pixel none
+for_window [class="St" instance="music"] floating enable boder pixel none
 for_window [class="TelegramDesktop"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] resize set 1200 800
@@ -379,4 +385,12 @@ for_window [class="Alacritty" title="scratchpad"] resize set 1200 800
 for_window [class="Alacritty" title="scratchpad"] move position center
 for_window [class="Alacritty" title="scratchpad"] move scratchpad
 for_window [class="Alacritty" title="scratchpad"] scratchpad show
+for_window [class="mpv"] floating enable
+for_window [class="mpv"] resize set 640 480
+for_window [class="mpv"] move position 1200 50
+for_window [class="Alacritty" title="mpvoo"] floating enable
+for_window [class="Alacritty" title="mpvoo"] resize set 700 400
+for_window [class="Alacritty" title="mpvoo"] move position 1200 500
+for_window [class="Alacritty" title="mpvoo"] move scratchpad
+for_window [class="Alacritty" title="mpvoo"] scratchpad show
 #for_window [class="mpv"] floating enable boder pixel none
