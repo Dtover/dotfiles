@@ -10,10 +10,10 @@ new_window pixel 0
 gaps inner 5 
 		
 # Autorun while start i3 
+exec_always --no-startup-id ~/.config/i3/scripts/NetMan.sh
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id ~/.config/i3/scripts/tap-to-click.sh 
 exec_always --no-startup-id ~/.config/i3/scripts/inverse-scroll.sh 
-exec_always --no-startup-id ~/.config/i3/scripts/NetMan.sh
 # exec_always --no-startup-id ~/.config/i3/scripts/mpdautostart.sh
 exec_always --no-startup-id feh --bg-scale /home/dreamlocker/Pictures/BG_images/24.jpg
 # exec_always --no-startup-id ~/.config/i3/scripts/BGImage.sh
@@ -70,7 +70,7 @@ bindsym $mod+shift+b bar mode toggle bar-1
 # start a browser
 bindsym $mod+c exec --no-startup-id google-chrome-stable
 # reload the configuration file
-# bindsym $mod+Shift+c nop
+bindsym $mod+Shift+c reload
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id dmenu_run
@@ -85,7 +85,7 @@ bindsym $mod+Shift+e exec --no-startup-id srl
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-bindsym $mod+shift+f reload
+bindsym $mod+shift+f [class="mpv"] fullscreen toggle
 
 # use betterlockscreen to lock
 bindsym $mod+g exec --no-startup-id betterlockscreen -l blur
@@ -93,9 +93,9 @@ bindsym $mod+g exec --no-startup-id betterlockscreen -l blur
 bindsym $mod+shift+g exec --no-startup-id i3lock-fancy
 
 #binsym $mod+n nop
-# mpv next
-bindsym $mod+shift+n exec --no-startup-id mpc next && pkill -RTMIN+10 i3blocks
-bindsym $mod+ctrl+n exec --no-startup-id mpc volume +10 && pkill -RTMIN+10 i3blocks
+# mpc next
+#bindsym $mod+shift+n exec --no-startup-id mpc next && pkill -RTMIN+10 i3blocks
+#bindsym $mod+ctrl+n exec --no-startup-id mpc volume +10 && pkill -RTMIN+10 i3blocks
 
 # RUN IDEA
 #bindsym $mod+i nop
@@ -112,13 +112,13 @@ bindsym $mod+o floating enable; resize set 950 600; move position 900 550
 
 
 # mpc toggle
-bindsym $mod+p exec --no-startup-id mpc toggle && pkill -RTMIN+10 i3blocks
+#bindsym $mod+p exec --no-startup-id mpc toggle && pkill -RTMIN+10 i3blocks
 # mpc prev
-bindsym $mod+shift+p exec --no-startup-id mpc prev && pkill -RTMIN+10 i3blocks
-bindsym $mod+ctrl+p exec --no-startup-id mpc volume -10 && pkill -RTMIN+10 i3blocks
+#bindsym $mod+shift+p exec --no-startup-id mpc prev && pkill -RTMIN+10 i3blocks
+#bindsym $mod+ctrl+p exec --no-startup-id mpc volume -10 && pkill -RTMIN+10 i3blocks
 
 # kill focused window
-#bindsym $mod+q nop
+bindsym $mod+q [class="mpv"] kill
 bindsym $mod+shift+q kill
 
 # resize window (you can also use the mouse for that)
@@ -376,6 +376,7 @@ for_window [class="baidunetdisk"] floating enable boder pixel none
 for_window [class="St" instance="todo"] floating enable boder pixel none
 for_window [class="St" instance="music"] floating enable boder pixel none
 for_window [class="TelegramDesktop"] floating enable boder pixel none
+for_window [class="zoom"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] resize set 1200 800
 for_window [class="Sxiv" instance="bgp"] move position center

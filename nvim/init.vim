@@ -197,6 +197,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'mg979/vim-xtabline'
 Plug 'ryanoasis/vim-devicons'
+Plug 'dylanaraps/wal.vim'
 
 "File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -260,6 +261,7 @@ call plug#end()
 let g:airline_theme='dracula'
 let g:space_vim_transp_bg = 1
 colorscheme space_vim_theme
+"colorscheme wal
 set background=dark
 
 "source /home/dreamlocker/.config/nvim/_machine_specific_default.vim

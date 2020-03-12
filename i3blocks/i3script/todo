@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "✅TODO"
+echo "TODO"
 case "$BLOCK_BUTTON" in
 	1) if [[ -f ~/Desktop/DailyTODO/"$(date '+%m_%d')" ]];then
 			notify-send "$(cat ~/Desktop/DailyTODO/"$(date '+%m_%d')")" 

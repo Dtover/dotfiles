@@ -22,7 +22,8 @@ align=left
 #BASE_COLOR=#5fff5f
 #UPDATE_COLOR=#FFFF85
 #AUR=true
-LABEL=📦 
+#LABEL=📦 
+LABEL=Package: 
 
 [hitokoto]
 #full_text=<b><span color="#CEB03E">Hitokoto</span></b>
@@ -36,9 +37,9 @@ interval=1800
 
 #[separator]
 
-[mpc]
+[music]
 command=./i3script/music
-label=🎵
+#label=🎵
 interval=1
 signal=10
 min_width=420
@@ -82,4 +83,3 @@ command=./i3script/class
 min_width=100
 align=center
 interval=1800
-
