@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script is used to shutdown, reboot or logout i3
-choice="$(printf " Shutdown\\n Reboot\\n﫼 Logout" | rofi -dmenu -i -theme /home/dreamlocker/.config/rofi/rofitest.rasi -p "You wanna ")"
+choice="$(printf " Shutdown\\n Reboot\\n﫼 Logout" | rofi -dmenu -i -theme /home/dtover/.cache/wal/walrofi.rasi -p "You wanna ")"
 case $choice in
 	" Shutdow"n) shutdown -h now;;
 	" Reboot") reboot;;
