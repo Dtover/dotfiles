@@ -1,0 +1,9 @@
+#!/bin/bash
+BAR_ICON=""
+package=$(pacman -Qu --dbpath /tmp/checkup-db-dtover 2> /dev/null | wc -l)
+if [[ package -eq 0 ]];then
+	echo "system up to date"
+else
+	echo "$BAR_ICON $package"
+fi
+

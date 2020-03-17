@@ -1,0 +1,9 @@
+#!/bin/bash
+# show the song name that netease-cloud-music are playing 
+musicname=$(wmctrl -l | grep 'Music' | cut -d 'A' -f2 | sed 's/ — Cloud Music//g')
+namelength=$(wmctrl -l | grep 'Music' | cut -d 'A' -f2 | sed 's/ — Cloud Music//g' | wc -c)
+[[ -z $musicname ]] && echo ' No music playing'
+if [[ $namelength -ge 56 ]];then
+	musicname="$(echo $musicname | cut -d '-' -f1)"
+fi
+echo " $musicname"

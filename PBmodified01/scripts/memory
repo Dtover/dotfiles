@@ -1,0 +1,4 @@
+#!/bin/sh
+MEM_usage=`free -h | grep Mem: | awk '{print $3 "/" $7}'`
+MEM_percentage=`free -m | awk '/^Mem:/{print $3 / $7 * 100}' | cut -c 1-2`
+printf " %s%%" "$MEM_percentage"
