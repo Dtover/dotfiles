@@ -1,0 +1,79 @@
+#!/bin/bash
+# a simple daily to_do list script
+path=${HOME}/Desktop/DailyTODO
+[[ -d $path ]] || mkdir -p $path
+if [[ -f "$path/$(date '+%m_%d')" ]];then
+	echo "The todo list for $(date '+%m/%d') already exists!"
+	while true
+	do
+		echo -n "What do you want ?(1:add/2:change/3:overwrite/4:quit)"
+		read ans
+		case $ans in
+			1) 
+				let taskid=$(cat $path/$(date '+%m_%d') | wc -l)
+				break;;
+			2) 
+				Maxid=$(cat $path/$(date '+%m_%d') | wc -l)
+				while true
+				do
+					cat $path/$(date '+%m_%d')
+					echo -n "Which task you want to change?(input the task id, return: exit)"
+					read taskidc
+					[[ -z $taskidc ]] && exit;
+					if [[ $taskidc -le 0 || $taskidc -gt $Maxid ]];then
+						 echo "wrong id!"
+						 continue
+				 	else
+						echo -n "Change task-$taskidc to: (return:delete)"
+						read newtask
+						if [[ -z $newtask ]];then
+							newtask=CANCELED 
+							sed -i "$taskidc"c\\""$taskidc"  $newtask" $path/$(date '+%m_%d')
+							echo "already delete!"
+							exit;
+						fi
+						echo -n "input new deadline: (return: no deadline)"
+						read newdl
+						if [[ -z "$newdl" ]];then
+							sed -i "$taskidc"c\\"$(printf "%-2s %-20s" "$taskidc" "$newtask")" $path/$(date '+%m_%d')
+						else
+							sed -i "$taskidc"c\\"$(printf "%-2s %-20s [%s]" "$taskidc" "$newtask" "$newdl")" $path/$(date '+%m_%d')
+						fi
+						echo "Changed successfully!"
+					fi
+				done
+				break;;
+			3)
+				echo -n "" > $path/$(date '+%m_%d')
+				echo "List clear!"
+				taskid=0
+				break;;
+			4) exit;;
+			*) echo "no such choice!";;
+		esac
+	done
+else
+	touch "$path/$(date '+%m_%d')"
+	taskid=0
+fi
+while true
+do
+	echo -n "Input you task name: (1:view exist tasks)"
+	read task
+	if [[ -z "$task" ]];then
+		echo "Exiting~"
+		notify-send "$(cat $path/$(date '+%m_%d'))"
+		exit 0;
+	elif [[ "$task" = "1" ]];then
+		cat $path/$(date '+%m_%d')
+	else
+		((taskid++))
+		echo -n "Input the deadline: (return: no deadline)"
+		read deadline
+		if [[ -n "$deadline" ]];then
+			printf "%-2s %-20s [%s]\n" "$taskid" "$task" "$deadline" >> $path/$(date '+%m_%d')
+		else
+			printf "%-2s %-20s\n" "$taskid" "$task" >> $path/$(date '+%m_%d')
+		fi
+	fi
+done

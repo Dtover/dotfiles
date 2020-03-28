@@ -1,0 +1,14 @@
+#!/bin/bash
+#ensure that you've installed xclip
+xclip -h 2>/dev/null || exit 1
+chosen=$(cat ~/Desktop/.hiddenfile/ICOMOONICONS | rofi -dmenu -location 1 -xoffset 10 -yoffset 32 -columns 15 -l 12 -i -p "pick an icon")
+
+[ "$chosen" != "" ] || exit
+
+if [ -n "$1" ];then
+	xdotool key Shift+Insert
+else
+	echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+	notify-send "'$chosen' copied to clipboard." &
+fi
+

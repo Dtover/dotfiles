@@ -1,0 +1,9 @@
+#!/bin/bash
+# uses scrot, imagemagick, and i3lock to take a screenshot   of the current desktop, blur it, set that picture as background lock, and lock the 
+# computer
+
+scrot -o ~/.cache/lock/lock.png
+
+convert ~/.cache/lock/lock.png -blur 0x5.0 ~/.cache/lock/blurlock.png
+
+i3lock -i ~/.cache/lock/blurlock.png

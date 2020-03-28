@@ -1,0 +1,9 @@
+#!/bin/bash
+# This script is used to shutdown, reboot or logout i3
+choice="$(printf " Lock\\n Shutdown\\n Reboot\\n Logout" | rofi -dmenu -i -theme /home/dtover/.cache/wal/walrofi.rasi -p "You wanna ")"
+case $choice in
+	" Lock") i3lock-fancy ;;
+	" Shutdown") shutdown -h now;;
+	" Reboot") reboot;;
+	" Logout") i3-msg exit;;
+esac

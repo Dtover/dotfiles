@@ -1,6 +1,7 @@
 #### This is dotfiles for my archlinux and i3
 ##### Following are some software that I'm using or used
 + alacritty/st(simple terminal)
++ termite
 + zsh/oh-my-zsh
 + polybar for bar pretty
 + zathura for PDF reading
@@ -14,10 +15,11 @@
 + utools
 + ...
 
-*Here are something funny*  
+*Here are something funny stuff*  
 + cowsay
 + neofecth
 + oneko
 + variety
 + i3lock-fancy
++ betterlockscreen
 

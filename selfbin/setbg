@@ -1,0 +1,7 @@
+#!/bin/bash
+file=$1
+[[ -z $file ]] && file="~/Pictures/BG_images/24.jpg"
+wal -i $file 2> /dev/null
+[[ $(ps aux | grep dunst | wc -l) -gt 1 ]] && pkill dunst 2> /dev/null
+${HOME}/.local/selfbin/betterlockscreen -u $file 2> /dev/null 
+notify-send "${file##*/} has been set as lock screen"

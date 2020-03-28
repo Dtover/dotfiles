@@ -25,7 +25,7 @@ noremap <LEADER>ct :set fileencoding=utf-8<CR>:w<CR>
 "Prevent incorrect background rendering
 "let &t_ut=''
 
-source /home/dreamlocker/.config/nvim/_machine_specific_default.vim
+"source /home/dreamlocker/.config/nvim/_machine_specific_default.vim
 
 set scrolloff=5
 syntax on
@@ -42,10 +42,10 @@ noremap <LEADER>nn :set nonu<CR>:set norelativenumber<CR>
 noremap <LEADER>NN :set nu<CR>:set relativenumber<CR>
 
 " Open the vimrc file anytime
-noremap <LEADER>vi :tabe ~/.config/nvim/init.vim<CR>
+noremap <LEADER>ev :tabe ~/.config/nvim/init.vim<CR>
 
 "Open the i3 config file anytime
-noremap <LEADER>ii :tabe ~/.config/i3/config<CR>
+noremap <LEADER>ei :tabe ~/.config/i3/config<CR>
 
 
 "set cursorline
@@ -62,6 +62,9 @@ set signcolumn=yes
 set clipboard+=unnamedplus
 "vnoremap Y "+y
 noremap Y y$
+noremap <LEADER>d 0D
+
+noremap <LEADER>v v$
 
 set mouse=a
 
@@ -92,10 +95,10 @@ noremap <LEADER>R :source $MYVIMRC<CR>
 "endfunc
 
 
-noremap H 5h
-noremap K 5k
-noremap L 5l
 noremap J 5j
+noremap K 5k
+"noremap H 5h
+"noremap L 5l
 
 "SET SPELL
 noremap <LEADER>ss :set spell<CR>
@@ -124,6 +127,10 @@ noremap tl :+tabnext<CR>
 "Opening a terminal window
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 
+"Paste the current path
+noremap <LEADER>p :r !pwd<CR>kJ
+
+
 "insert mode cursor movement
 inoremap <C-a> <ESC>I
 inoremap <C-e> <ESC>A
@@ -141,16 +148,19 @@ func! CompileRunGcc()
   elseif &filetype == 'cs'
     exec "!mcs % -out:%<.exe"
     exec "!mono ./%<.exe"
-  elseif &filetype == 'java'
-    exec "!javac %"
-    exec "!time java %<"
   elseif &filetype == 'sh'
     :!time bash %
+  elseif &filetype == 'perl'
+    :!time perl %
+  elseif &filetype == 'ruby'
+    :!time perl %
   elseif &filetype == 'python'
     set splitbelow
     :split
     :res-10
     :term python3 %
+  elseif &filetype == 'lua'
+    :!time lua %
   elseif &filetype == 'html'
     exec "!google-chrome-stable % &"
   elseif &filetype == 'markdown'
@@ -192,22 +202,24 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
-Plug 'bling/vim-bufferline'
+"Plug 'bling/vim-bufferline'
 Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/space-vim-theme'
-Plug 'mg979/vim-xtabline'
+"Plug 'mg979/vim-xtabline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'dylanaraps/wal.vim'
+Plug 'mhinz/vim-startify'
+Plug 'bagrat/vim-buffet'
 
 "File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
 Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 
 "Git
-"Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
+Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
 
 "HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
@@ -218,15 +230,16 @@ Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
 Plug 'mattn/emmet-vim'
 
 "MarkDown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
+Plug 'reedes/vim-pencil', { 'for' :['markdown', 'vim-plug'] }
 
 "AutComplicted
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ulnisnips'
 Plug 'honza/vim-snippets'
 "Plug 'ycm-core/YouCompleteMe'
 "Plug 'ycm-core/YouCompleteMe'
@@ -258,11 +271,28 @@ call plug#end()
 " ===
 " === Dress
 " ===
-let g:airline_theme='dracula'
 let g:space_vim_transp_bg = 1
-colorscheme space_vim_theme
-"colorscheme wal
+"colorscheme space_vim_theme
+colorscheme wal
 set background=dark
+
+"===
+"=== airline
+"===
+"let g:airline_theme='dracula'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 0
+"let g:airline#extensions#tabline#buffer_idx_mode = 1
+"nmap <leader>1 <Plug>AirlineSelectTab1
+"nmap <leader>2 <Plug>AirlineSelectTab2
+"nmap <leader>3 <Plug>AirlineSelectTab3
+"nmap <leader>4 <Plug>AirlineSelectTab4
+"nmap <leader>5 <Plug>AirlineSelectTab5
+"nmap <leader>6 <Plug>AirlineSelectTab6
+"nmap <leader>7 <Plug>AirlineSelectTab7
+"nmap <leader>8 <Plug>AirlineSelectTab8
+"nmap <leader>9 <Plug>AirlineSelectTab9
+
 
 "source /home/dreamlocker/.config/nvim/_machine_specific_default.vim
 
@@ -394,6 +424,7 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
+
 source ~/.config/nvim/md-snippets.vim
 
 "
@@ -461,13 +492,13 @@ let g:multi_cursor_quit_key            = '<Esc>'
 "===
 "=== xtabline
 "===
-let g:xtabline_settings = {}
-let g:xtabline_settings.enable_mappings = 0
-let g:xtabline_settings.tabline_mode = ['tabs', 'buffers']
-let g:xtabline_settings.enable_persistance = 0
-let g:xtabline_settings.last_open_first = 1
-noremap <LEADER>to :XTabCycleMode<CR>
-noremap \p : XTabInfo<CR>
+"let g:xtabline_settings = {}
+"let g:xtabline_settings.enable_mappings = 0
+"let g:xtabline_settings.tabline_mode = ['tabs', 'buffers']
+"let g:xtabline_settings.enable_persistance = 0
+"let g:xtabline_settings.last_open_first = 1
+"noremap <LEADER>to :XTabCycleMode<CR>
+"noremap \p : XTabInfo<CR>
 
 "===
 "=== Vista.vim
@@ -487,3 +518,42 @@ endfunction
 set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
+"===
+"=== vim-ctrlspace
+"===
+"let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+"function! StartifyEntryFormat()
+	"return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+"endfunction
+
+"===
+"=== vim-buffet
+"===
+let g:buffet_powerline_separators = 1
+let g:buffet_always_show_tabline = 1
+let g:buffet_show_index = 1
+let g:buffet_tab_icon = "Tab"
+function! g:BuffetSetCustomColors()
+    hi! BuffetCurrentBuffer cterm=NONE ctermbg=0 ctermfg=6 
+    hi! BuffetBuffer cterm=NONE ctermbg=7 ctermfg=1
+    hi! BuffetActiveBuffer cterm=NONE ctermbg=8 ctermfg=3
+	hi! BuffetTrunc cterm=NONE
+	hi! BuffetTab cterm=NONE ctermfg=3 ctermfg=0
+endfunction
+
+nmap <leader>1 <Plug>BuffetSwitch(1)
+nmap <leader>2 <Plug>BuffetSwitch(2)
+nmap <leader>3 <Plug>BuffetSwitch(3)
+nmap <leader>4 <Plug>BuffetSwitch(4)
+nmap <leader>5 <Plug>BuffetSwitch(5)
+nmap <leader>6 <Plug>BuffetSwitch(6)
+nmap <leader>7 <Plug>BuffetSwitch(7)
+nmap <leader>8 <Plug>BuffetSwitch(8)
+nmap <leader>9 <Plug>BuffetSwitch(9)
+nmap <leader>0 <Plug>BuffetSwitch(10)
+
+"===
+"=== vim-pencil
+"===
+let g:pencil#autoformat = 1
+let g:pencil#wrapModeDefault = 'soft' 
