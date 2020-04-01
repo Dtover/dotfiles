@@ -13,7 +13,7 @@ gaps inner 8
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id ~/.config/i3/scripts/tap-to-click.sh 
 exec_always --no-startup-id ~/.config/i3/scripts/inverse-scroll.sh 
-exec_always --no-startup-id feh --bg-fill ~/Pictures/BG_images/92.jpg
+exec_always --no-startup-id feh --bg-fill ~/Pictures/BG_images/092.jpg
 # exec_always --no-startup-id ~/.config/i3/scripts/mpdautostart.sh
 #exec_always --no-startup-id wal -i return:/Pictures/BG_images/10.jpg
 #exec_always --no-startup-id ~/.config/i3/scripts/BGImage.sh
@@ -59,9 +59,9 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+shift+Return exec --no-startup-id termite --title scratchpad
 
 # switch between the current and the previously focused one
-bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth
 # move the container to the previously focused one
-bindsym $mod+shift+Tab move container to workspace back_and_forth
+bindsym $mod+shift+grave move container to workspace back_and_forth
 
 # bar toggle, hide or show
 bindsym $mod+b  bar mode toggle bar-0

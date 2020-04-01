@@ -155,11 +155,13 @@ alias vsp="sudo systemctl stop v2ray"
 alias mntr="${HOME}/.config/zsh/mntr.sh"
 alias doc="ranger ${HOME}/Documents"
 alias dow="ranger ${HOME}/Downloads"
+alias a="ranger ${HOME}/.config/awesome"
 alias unzipc="unzip -O cp936"
 alias cls="~/Desktop/cs.sh"
 alias bgp="sxiv -ft ~/Pictures/BG_images/*.jpg ~/Pictures/BG_images/*.jpeg"
 alias e="exit"
 alias cg="cd ~/Github"
 alias pc="proxychains"
+alias a="ranger ${HOME}/.config/awesome"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 cat ${HOME}/.cache/wal/sequences
