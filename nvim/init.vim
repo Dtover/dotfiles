@@ -210,6 +210,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'dylanaraps/wal.vim'
 Plug 'mhinz/vim-startify'
 Plug 'bagrat/vim-buffet'
+Plug 'arcticicestudio/nord-vim'
 
 "File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -217,6 +218,7 @@ Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'mcchrish/nnn.vim'
 
 "Git
 Plug 'fszymanski/fzf-gitignore', {'do': ':UpdateRemotePlugins'}
@@ -271,15 +273,16 @@ call plug#end()
 " ===
 " === Dress
 " ===
-let g:space_vim_transp_bg = 1
+"let g:space_vim_transp_bg = 1
 "colorscheme space_vim_theme
+"colorscheme nord
 colorscheme wal
 set background=dark
 
 "===
 "=== airline
 "===
-"let g:airline_theme='dracula'
+let g:airline_theme='wal'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -535,8 +538,8 @@ let g:buffet_show_index = 1
 let g:buffet_tab_icon = "Tab"
 function! g:BuffetSetCustomColors()
     hi! BuffetCurrentBuffer cterm=NONE ctermbg=0 ctermfg=6 
-    hi! BuffetBuffer cterm=NONE ctermbg=7 ctermfg=1
-    hi! BuffetActiveBuffer cterm=NONE ctermbg=8 ctermfg=3
+    hi! BuffetBuffer cterm=NONE ctermbg=0 ctermfg=1
+    hi! BuffetActiveBuffer cterm=NONE ctermbg=8 ctermfg=7
 	hi! BuffetTrunc cterm=NONE
 	hi! BuffetTab cterm=NONE ctermfg=3 ctermfg=0
 endfunction

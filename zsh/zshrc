@@ -163,5 +163,6 @@ alias e="exit"
 alias cg="cd ~/Github"
 alias pc="proxychains"
 alias a="ranger ${HOME}/.config/awesome"
+alias n="nnn"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-cat ${HOME}/.cache/wal/sequences
+#cat ${HOME}/.cache/wal/sequences

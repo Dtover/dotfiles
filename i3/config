@@ -53,10 +53,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # start a terminal tiling
-bindsym $mod+Return exec --no-startup-id termite
+bindsym $mod+Return exec --no-startup-id alacritty
 # bindsym $mod+Return exec --no-startup-id st
 # start a termainl floating
-bindsym $mod+shift+Return exec --no-startup-id termite --title scratchpad
+bindsym $mod+shift+Return exec --no-startup-id alacritty -t scratchpad
 
 # switch between the current and the previously focused one
 bindsym $mod+grave workspace back_and_forth
@@ -70,7 +70,7 @@ bindsym $mod+shift+b bar mode toggle bar-1
 # start a browser
 bindsym $mod+c exec --no-startup-id google-chrome-stable
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+v reload
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec --no-startup-id dmenu_run
@@ -78,10 +78,10 @@ bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/launcher
 bindsym $mod+shift+d exec --no-startup-id ~/.local/rofi-translate/rofi_trans
 
 # split toggle
-bindsym $mod+e layout toggle split
+bindsym $mod+z layout toggle split
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec --no-startup-id srl
+bindsym $mod+Shift+z exec --no-startup-id srl
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -97,7 +97,6 @@ bindsym $mod+shift+g exec --no-startup-id i3lock-fancy
 #bindsym $mod+shift+n exec --no-startup-id mpc next && pkill -RTMIN+10 i3blocks
 #bindsym $mod+ctrl+n exec --no-startup-id mpc volume +10 && pkill -RTMIN+10 i3blocks
 
-# RUN IDEA
 bindsym $mod+i resize set 950 600; move position 10 550
 #bindsym $mod+shift+i nop
 
@@ -118,8 +117,8 @@ bindsym $mod+o resize set 950 600; move position 950 550
 #bindsym $mod+ctrl+p exec --no-startup-id mpc volume -10 && pkill -RTMIN+10 i3blocks
 
 # kill focused window
-bindsym $mod+q [class="mpv"] kill
-bindsym $mod+shift+q kill
+bindsym $mod+Escape [class="mpv"] kill
+bindsym $mod+shift+Escape kill
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -147,9 +146,9 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        bindsym $mod+v mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+v mode "resize"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
@@ -163,14 +162,15 @@ bindsym $mod+t exec --no-startup-id st -n todo -e todo
 
 # split in horizontal orientation
 bindsym $mod+u split h
+bindsym $mod+shift+u split v
 #bindsym $mod+shift+u nop
 
 # split in vertical orientation
-bindsym $mod+v split v
+#bindsym $mod+v split v
 #bindsym $mod+shift+v nop
 
 # bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+w layout tabbed
 #bindsym $mod+shift+w nop
 
 # two empression-icon picker script
@@ -385,12 +385,12 @@ for_window [class="zoom"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] floating enable boder pixel none
 for_window [class="Sxiv" instance="bgp"] resize set 1200 800
 for_window [class="Sxiv" instance="bgp"] move position center
-#build a named scratchpad alacritty window
-for_window [class="Termite" title="scratchpad"] floating enable
-for_window [class="Termite" title="scratchpad"] resize set 1200 800
-for_window [class="Termite" title="scratchpad"] move position center
-for_window [class="Termite" title="scratchpad"] move scratchpad
-for_window [class="Termite" title="scratchpad"] scratchpad show
+#build a named scratchpad terminal
+for_window [title="scratchpad"] floating enable
+for_window [title="scratchpad"] resize set 1200 800
+for_window [title="scratchpad"] move position center
+for_window [title="scratchpad"] move scratchpad
+for_window [title="scratchpad"] scratchpad show
 for_window [class="mpv"] floating enable
 for_window [class="mpv"] resize set 640 480
 for_window [class="mpv"] move position 1200 50
