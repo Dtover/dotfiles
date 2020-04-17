@@ -101,7 +101,7 @@ noremap K 5k
 "noremap L 5l
 
 "SET SPELL
-noremap <LEADER>ss :set spell<CR>
+noremap <LEADER>S :set spell<CR>
 noremap <LEADER>sn :set nospell<CR>
 
 "Windowsplit
@@ -211,6 +211,7 @@ Plug 'dylanaraps/wal.vim'
 Plug 'mhinz/vim-startify'
 Plug 'bagrat/vim-buffet'
 Plug 'arcticicestudio/nord-vim'
+Plug 'joelstrouts/swatch.vim'
 
 "File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -275,8 +276,8 @@ call plug#end()
 " ===
 "let g:space_vim_transp_bg = 1
 "colorscheme space_vim_theme
-"colorscheme nord
-colorscheme wal
+colorscheme nord
+"colorscheme wal
 set background=dark
 
 "===

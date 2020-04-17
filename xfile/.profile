@@ -2,6 +2,7 @@ export PATH="$PATH:${HOME}/.local/bin"
 export PATH="$PATH:${HOME}/node_modules/.bin"
 export PATH="$PATH:${HOME}/.local/selfbin"
 export PATH="$PATH:${HOME}/.local/rofi-translate"
+export PATH="$PATH:${HOME}/.gem/ruby/2.7.0/bin"
 
 export EDITOR="nvim"
 export TERMINAL="termite"
