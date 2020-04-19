@@ -25,6 +25,9 @@ noremap <LEADER>ct :set fileencoding=utf-8<CR>:w<CR>
 "Prevent incorrect background rendering
 "let &t_ut=''
 
+"Open the file at last edit position
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 "source /home/dreamlocker/.config/nvim/_machine_specific_default.vim
 
 set scrolloff=5
@@ -97,6 +100,7 @@ noremap <LEADER>R :source $MYVIMRC<CR>
 
 noremap J 5j
 noremap K 5k
+noremap L $
 "noremap H 5h
 "noremap L 5l
 
