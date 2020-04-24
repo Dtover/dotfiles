@@ -98,8 +98,13 @@ noremap <LEADER>R :source $MYVIMRC<CR>
 "endfunc
 
 
-noremap J 5j
-noremap K 5k
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
+map J 5j
+map K 5k
+noremap H ^
 noremap L $
 "noremap H 5h
 "noremap L 5l
@@ -138,6 +143,7 @@ noremap <LEADER>p :r !pwd<CR>kJ
 "insert mode cursor movement
 inoremap <C-a> <ESC>I
 inoremap <C-e> <ESC>A
+inoremap <C-k> <ESC>lc$
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -468,7 +474,7 @@ let g:gitgutter_preview_win_floating = 1
 
 autocmd BufWritePost * GitGutter
 nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap H :GitGutterPreviewHunk<CR>
+nnoremap <LEADER>H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 "source /home/dreamlocker/.config/nvim/pack/airblade/start/vim-gitgutter/unplace.vim

@@ -165,5 +165,6 @@ alias cg="cd ~/Github"
 alias pc="proxychains"
 alias a="ranger ${HOME}/.config/awesome"
 alias n="nnn"
+alias b="cd ~/Blog"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #cat ${HOME}/.cache/wal/sequences
