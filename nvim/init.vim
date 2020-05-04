@@ -4,7 +4,7 @@
 "then do :checkhealth
 "pay attention to warning part(you might have to install xclip and corret the
 "python_path)
-"
+
 let mapleader=" "
 
 "===
@@ -143,7 +143,7 @@ noremap <LEADER>p :r !pwd<CR>kJ
 "insert mode cursor movement
 inoremap <C-a> <ESC>I
 inoremap <C-e> <ESC>A
-inoremap <C-k> <ESC>lc$
+inoremap <C-k> <ESC>lC
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -171,6 +171,8 @@ func! CompileRunGcc()
     :term python3 %
   elseif &filetype == 'lua'
     :!time lua %
+  elseif &filetype == 'javascript'
+    :!time node %
   elseif &filetype == 'html'
     exec "!google-chrome-stable % &"
   elseif &filetype == 'markdown'
@@ -276,8 +278,10 @@ Plug 'liuchengxu/vista.vim'
 
 
 "Dependencies
+
 "other userful plug
 Plug 'jiangmiao/auto-pairs'
+"Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
