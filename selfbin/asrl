@@ -2,7 +2,7 @@
 # This script is used to shutdown, reboot or logout i3
 choice="$(printf " Lock\\n Shutdown\\n Reboot\\n Logout" | rofi -dmenu -i -theme /home/dtover/.cache/wal/walrofi.rasi -p "You wanna ")"
 case $choice in
-	" Lock") betterlockscreen -l -t "type passwd to unlock";;
+	" Lock") btlock;;
 	#" Lock") i3lock-fancy ;;
 	" Shutdown") shutdown -h now;;
 	" Reboot") reboot;;

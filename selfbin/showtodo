@@ -1,0 +1,7 @@
+#!/bin/bash
+# This script is for awesome wm desktop to get the list content
+if [[ -f ~/Desktop/DailyTODO/"$(date '+%m_%d')" ]];then
+		cat ~/Desktop/DailyTODO/"$(date '+%m_%d')"
+	else
+		echo "no list built yet!"
+fi

@@ -1,3 +1,4 @@
 #!/bin/bash
 path=~/Pictures/BG_images/
+#find ${path} -type -f | shuf | sxiv -N bgp -
 sxiv -N bgp -t ${path}/* &

@@ -1,0 +1,16 @@
+#!/bin/bash
+config_path=/home/dtover/Documents/v2rayconfig
+function change_config()
+{
+	num=$[RANDOM%5]
+	((num++))
+	sudo -A cp "${config_path}/config${num}.json" /etc/v2ray/config.json
+	#echo ${config_path}/config${num}.json
+	sudo -A systemctl restart v2ray.service
+}
+change_config && notify-send "config changed"
+
+#Test the status of the proxy
+#proxychains curl -i google.com > /dev/null 2>&1
+#if connect failed call the function
+#[[ $? -ne 0 ]] && notify-send "Config changed"

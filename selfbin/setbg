@@ -2,6 +2,9 @@
 file=$1
 [[ -z $file ]] && file="~/Pictures/BG_images/24.jpg"
 wal -i $file 2> /dev/null
+#check the current session, if awesome then set bg with feh
+#[[ $DESKTOP_SESSION == "/usr/share/xsessions/awesome" ]] && feh --bg-fill ${file}
 [[ $(ps aux | grep dunst | wc -l) -gt 1 ]] && pkill dunst 2> /dev/null
-${HOME}/.local/selfbin/betterlockscreen -u $file 2> /dev/null 
+btlocker_left -u $file 2> /dev/null 
 notify-send "${file##*/} has been set as lock screen"
+#notify-send -i "$file" "has been set as lock screen"

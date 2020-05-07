@@ -1,0 +1,2 @@
+#!/bin/bash
+btlocker_left -l -t "type passwd to unlock" > /dev/null

@@ -1,0 +1,115 @@
+#!/bin/bash
+# This simple script is used to show the class I have following the day
+day=$(date +%a)
+hour=$(date +%H)
+minute=$(date +%M)
+h=`expr $hour \* 60`
+time=`expr $h + $minute`
+nums=$(expr $(date +%j) - 47)
+
+#8:00 - 9:40 480-580
+#10:10 - 11:50 610-710
+#13:30 - 15:10 810-910
+#15:40 - 17:20 940-1040
+#18:30 - 20:10 1110-1210
+
+if [[ $(expr $(expr $(expr $nums / 7) + 1) % 2) -eq 1 ]];then
+	CP="1-2: Compile Principle\n"
+	CPI="1-2: Compile Principle(in class)\n"
+	NP="3-4: Network Project\n"
+	NPI="3-4: Network Project(in class)\n"
+fi
+case $day in
+	Mon)
+		if [[ $time -lt 810 ]]; then
+			echo "5-6 : Embedded System Design"
+			echo "7-8 : Network Programming"
+			echo "9-10: Mao"
+		elif [[ $time -ge 810 && $time -le 910 ]]; then
+			echo "5-6 : Embedded System Design(in class)"
+			echo "7-8 : Network Programming"
+			echo "9-10: Mao"
+		elif [[ $time -gt 910 && $time -lt 940 ]]; then
+			echo "7-8 : Network Programming"
+			echo "9-10: Mao"
+		elif [[ $time -ge 940 && $time -le 1040 ]]; then
+			echo "7-8 : Network Programming(in class)"
+			echo "9-10: Mao"
+		elif [[ $time -gt 1040 && $time -lt 1110 ]]; then
+			echo "9-10: Mao"
+		elif [[ $time -ge 1110 && $time -le 1210 ]]; then
+			echo "9-10: Mao(in class)"
+		fi
+		;;
+	Tue) 
+		if [[ $time -lt 610 ]];	then
+			echo "3-4: Network Project"
+			echo "7-8: Information Retrieval"
+		elif [[ $time -ge 610 && $time -le 710 ]]; then
+			echo "3-4: Network Project(in class)"
+			echo "7-8: Information Retrieval"
+		elif [[ $time -gt 710 && $time -lt 940 ]]; then
+			echo "7-8: Information Retrieval"
+		elif [[ $time -ge 940 && $time -le 1040 ]]; then
+			echo "7-8: Information Retrieval(in class)"
+		fi
+		;;
+	Wed) 
+		if [[ $time -lt 480 ]]; then
+			echo -ne $CP
+			echo "3-4 : Professional English"
+			echo "7-8 : Security Programming"
+			echo "9-10: Mao"
+		elif [[ $time -ge 480 && $time -le 580 ]]; then
+			echo -ne $CPI
+			echo "3-4 : Professional English"
+			echo "7-8 : Security Programming"
+			echo "9-10: Mao"
+		elif [[ $time -gt 580 && $time -lt 610 ]]; then
+			echo "3-4 : Professional English"
+			echo "7-8 : Security Programming"
+			echo "9-10: Mao"
+		elif [[ $time -ge 610 && $time -le 710 ]]; then
+			echo "3-4 : Professional English(in class)"
+			echo "7-8 : Security Programming"
+			echo "9-10: Mao"
+		elif [[ $time -gt 710 && $time -lt 940 ]]; then
+			echo "7-8 : Security Programming"
+			echo "9-10: Mao"
+		elif [[ $time -ge 940 && $time -le 1040 ]]; then
+			echo "7-8 : Security Programming(in class)"
+			echo "9-10: Mao"
+		elif [[ $time -gt 1040 && $time -lt 1110 ]]; then
+			echo "9-10: Mao"
+		elif [[ $time -ge 1110 && $time -le 1210 ]]; then
+			echo "9-10: Mao(in class)"
+		fi
+		;;
+	Thu) 
+		echo -e "No class today!";;
+	Fri)
+		if [[ $time -lt 480 ]]; then
+			echo "1-2: Compile Principle"
+			echo -ne $NP
+			echo "5-6: Vocational Counsel"
+		elif [[ $time -ge 480 && $time -le 580 ]]; then
+			echo "1-2: Compile Principle(in class)"
+			echo -ne $NP
+			echo "5-6: Vocational Counsel"
+		elif [[ $time -gt 580 && $time -lt 610 ]]; then
+			echo -ne $NP
+			echo "5-6: Vocational Counsel"
+		elif [[ $time -ge 610 && $time -le 710 ]]; then
+			echo -ne $NPI
+			echo "5-6: Vocational Counsel"
+		elif [[ $time -gt 710 && $time -lt 810 ]]; then
+			echo "5-6: Vocational Counsel"
+		elif [[ $time -ge 810 && $time -le 910 ]]; then
+			echo "5-6: Vocational Counsel(in class)"
+		elif [[ $time -gt 910 ]]; then
+			echo "No class following"
+		fi
+		;;
+	*) 	echo "No class today!!!";;
+esac
+
