@@ -139,6 +139,7 @@ noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 "Paste the current path
 noremap <LEADER>p :r !pwd<CR>kJ
 
+imap <C-j> <CR>
 
 "insert mode cursor movement
 inoremap <C-a> <ESC>I

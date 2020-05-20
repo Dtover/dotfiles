@@ -167,5 +167,5 @@ alias a="ranger ${HOME}/.config/awesome"
 alias n="nnn"
 alias b="cd ~/Blog"
 alias h="cd ~/Blog/source/_posts; ls"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #cat ${HOME}/.cache/wal/sequences
