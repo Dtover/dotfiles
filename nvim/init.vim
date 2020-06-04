@@ -139,12 +139,14 @@ noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
 "Paste the current path
 noremap <LEADER>p :r !pwd<CR>kJ
 
-imap <C-j> <CR>
 
 "insert mode cursor movement
+imap <C-j> <CR>
 inoremap <C-a> <ESC>I
 inoremap <C-e> <ESC>A
 inoremap <C-k> <ESC>lC
+inoremap <C-b> <LEFT>
+inoremap <C-f> <RIGHT>
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
