@@ -106,8 +106,6 @@ map J 5j
 map K 5k
 noremap H ^
 noremap L $
-"noremap H 5h
-"noremap L 5l
 
 "SET SPELL
 noremap <LEADER>S :set spell<CR>
@@ -183,7 +181,7 @@ func! CompileRunGcc()
   endif
 endfunc
 
-"Solve the prolem when input Chinese
+"Solve the problem when input Chinese
 let g:input_toggle = 0
 function! Fcitx2en()
 let s:input_status = system("fcitx-remote")
@@ -540,14 +538,6 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 "===
-"=== vim-ctrlspace
-"===
-"let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-"function! StartifyEntryFormat()
-	"return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-"endfunction
-
-"===
 "=== vim-buffet
 "===
 let g:buffet_powerline_separators = 1
@@ -577,4 +567,4 @@ nmap <leader>0 <Plug>BuffetSwitch(10)
 "=== vim-pencil
 "===
 let g:pencil#autoformat = 1
-let g:pencil#wrapModeDefault = 'soft' 
+let g:pencil#wrapModeDefault = 'soft'
