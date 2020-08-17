@@ -2,7 +2,7 @@
 # ------------
 if [[ $- == *i* ]]; then
 
-# CTRL-T - Paste the selected file path(s) into the command line
+ #CTRL-T - Paste the selected file path(s) into the command line
 #__fsel() {
   #local cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
 	#-o -type f -print \
@@ -36,32 +36,32 @@ __fzfcmd() {
 #bindkey '^M' fzf-file-widget
 
 # Ensure precmds are run after cd
-#fzf-redraw-prompt() {
-  #local precmd
-  #for precmd in $precmd_functions; do
-    #$precmd
-  #done
-  #zle reset-prompt
-#}
-#zle 	-N 		fzf-redraw-prompt
+fzf-redraw-prompt() {
+  local precmd
+  for precmd in $precmd_functions; do
+	$precmd
+  done
+  zle reset-prompt
+}
+zle 	-N 		fzf-redraw-prompt
 
-# Ctrl-M - cd into the selected directory
-#fzf-cd-widget() {
-  #local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
-    #-o -type d -print 2> /dev/null | cut -b3-"}"
-  #setopt localoptions pipefail no_aliases 2> /dev/null
-  #local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
-  #if [[ -z "$dir" ]]; then
-    #zle redisplay
-    #return 0
-  #fi
-  #cd "$dir"
-  #local ret=$?
-  #zle fzf-redraw-prompt
-  #return $ret
-#}
-#zle     -N    fzf-cd-widget
-#bindkey '^M' fzf-cd-widget
+ #Ctrl-M - cd into the selected directory
+fzf-cd-widget() {
+  local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+	-o -type d -print 2> /dev/null | cut -b3-"}"
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
+  if [[ -z "$dir" ]]; then
+	zle redisplay
+	return 0
+  fi
+  cd "$dir"
+  local ret=$?
+  zle fzf-redraw-prompt
+  return $ret
+}
+zle     -N    fzf-cd-widget
+bindkey '^O' fzf-cd-widget
 
 # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {

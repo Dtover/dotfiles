@@ -169,5 +169,7 @@ alias n="nnn"
 alias b="cd ~/Blog"
 alias h="cd ~/Blog/source/_posts; ls"
 alias C="cd ~/Code; ls"
+alias lrun="love ../${$(pwd)##*/}"
+alias dod="/home/dtover/Documents/playground/Dodge/dod"
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #cat ${HOME}/.cache/wal/sequences

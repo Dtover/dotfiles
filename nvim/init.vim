@@ -132,7 +132,8 @@ noremap th :-tabnext<CR>
 noremap tl :+tabnext<CR>
 
 "Opening a terminal window
-noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+"noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+noremap <LEADER>/ :FloatermNew<CR>
 
 "Paste the current path
 noremap <LEADER>p :r !pwd<CR>kJ
@@ -145,6 +146,11 @@ inoremap <C-e> <ESC>A
 inoremap <C-k> <ESC>lC
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
+
+" Some floaterm short commands
+command! Ranger FloatermNew ranger
+command! NNN FloatermNew nnn
+
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -171,7 +177,7 @@ func! CompileRunGcc()
     :res-10
     :term python3 %
   elseif &filetype == 'lua'
-    :!time lua %
+	:!time lua %
   elseif &filetype == 'javascript'
     :!time node %
   elseif &filetype == 'html'
@@ -180,6 +186,7 @@ func! CompileRunGcc()
     exec "MarkdownPreview"
   endif
 endfunc
+
 
 "Solve the problem when input Chinese
 let g:input_toggle = 0
@@ -225,6 +232,7 @@ Plug 'mhinz/vim-startify'
 Plug 'bagrat/vim-buffet'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joelstrouts/swatch.vim'
+Plug 'voldikss/vim-floaterm'
 
 "File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -568,3 +576,8 @@ nmap <leader>0 <Plug>BuffetSwitch(10)
 "===
 let g:pencil#autoformat = 1
 let g:pencil#wrapModeDefault = 'soft'
+
+"===
+"=== floaterm
+"===
+let g:floaterm_position = 'bottomright'
