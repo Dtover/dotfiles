@@ -1,10 +1,11 @@
 "Something important
-"When use this configure file in a new machine
+"When use this config file in a new machine
 "first do :PlugInstall
 "then do :checkhealth
 "pay attention to warning part(you might have to install xclip and corret the
 "python_path)
 
+"Set the space as leader key
 let mapleader=" "
 
 "===
@@ -41,7 +42,7 @@ set relativenumber
 "noremap <silent> <LEADER>o za
 "Set no number
 noremap <LEADER>nn :set nonu<CR>:set norelativenumber<CR>
-"Set number
+"Set relativenumber
 noremap <LEADER>NN :set nu<CR>:set relativenumber<CR>
 
 " Open the vimrc file anytime
@@ -52,6 +53,7 @@ noremap <LEADER>ei :tabe ~/.config/i3/config<CR>
 
 
 "set cursorline
+"set cursorcolumn
 set wrap
 set wildmenu
 set showcmd
@@ -61,15 +63,9 @@ set ignorecase
 set smartcase
 set shortmess+=c
 set signcolumn=yes
+set mouse=a
 "copy to system clipboard
 set clipboard+=unnamedplus
-"vnoremap Y "+y
-noremap Y y$
-noremap <LEADER>d 0D
-
-noremap <LEADER>v v$
-
-set mouse=a
 
 exec "nohlsearch"
 set laststatus=2
@@ -79,11 +75,13 @@ let python_hightlight_all=1
 set tabstop=4
 set shiftwidth=4
 
+"Some remap to make vim work better
+"vnoremap Y "+y
+noremap Y y$
+noremap <LEADER>d 0D
+noremap <LEADER>v v$
 noremap <LEADER><CR> :nohlsearch<CR>
-"noremap ; :
-"noremap : ;
-"noremap <LEADER>s <nop>
-noremap S :w!<CR>
+noremap S <silent> :w!<CR>
 noremap Q :q<CR> 
 noremap <LEADER>Q :q!<CR>
 noremap <LEADER>R :source $MYVIMRC<CR>
@@ -96,8 +94,7 @@ noremap <LEADER>R :source $MYVIMRC<CR>
 "    exec "echo"
 "  endif
 "endfunc
-
-
+"
 noremap j gj
 noremap k gk
 noremap gj j
@@ -124,20 +121,23 @@ noremap <UP> :res+3<CR>
 noremap <DOWN> :res-3<CR>
 noremap <LEFT> :vertical res-5<CR>
 noremap <RIGHT> :vertical res+5<CR>
-"noremap srh <C-w>b<C-w>I
-"noremap srv <C-w>b<C-w>H
-"Tab
+"noremap <LEADER>srh <C-w>b<C-w>I
+"noremap <LEADER>srv <C-w>b<C-w>H
+" Tab
 noremap tn :tabe<CR>
 noremap th :-tabnext<CR>
 noremap tl :+tabnext<CR>
 
-"Opening a terminal window
-"noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
+"Opening a terminal window below
+noremap <LEADER>? :set splitbelow<CR>:sp<CR>:term<CR>
+"Open a float terminal
 noremap <LEADER>/ :FloatermNew<CR>
 
-"Paste the current path
-noremap <LEADER>p :r !pwd<CR>kJ
+"Paste the current path in the end of current line
+noremap <LEADER>pp :r !pwd<CR>kJ
 
+"Paste the present date in the end of current line
+noremap <LEADER>pd :r !echo $(date "+\%Y/\%m/\%d")<CR>kJ
 
 "insert mode cursor movement
 imap <C-j> <CR>
@@ -186,6 +186,9 @@ func! CompileRunGcc()
     exec "MarkdownPreview"
   endif
 endfunc
+
+"Run the current in the shell
+noremap <LEADER>el :exec '!'.getline('.')<CR>
 
 
 "Solve the problem when input Chinese
