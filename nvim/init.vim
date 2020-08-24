@@ -81,7 +81,7 @@ noremap Y y$
 noremap <LEADER>d 0D
 noremap <LEADER>v v$
 noremap <LEADER><CR> :nohlsearch<CR>
-noremap S <silent> :w!<CR>
+noremap S :w!<CR>
 noremap Q :q<CR> 
 noremap <LEADER>Q :q!<CR>
 noremap <LEADER>R :source $MYVIMRC<CR>
