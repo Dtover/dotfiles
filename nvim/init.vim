@@ -20,6 +20,9 @@ set fileencoding=utf-8
 set encoding=utf-8 
 set termencoding=utf-8
 set fileencodings=ucs,utf-8,cp936
+"set termguicolors
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 "Change file encoding to uft-8
 noremap <LEADER>ct :set fileencoding=utf-8<CR>:w<CR>
 
@@ -82,9 +85,19 @@ noremap <LEADER>d 0D
 noremap <LEADER>v v$
 noremap <LEADER><CR> :nohlsearch<CR>
 noremap S :w!<CR>
+"noremap S :call IsSaved()<CR>
 noremap Q :q<CR> 
 noremap <LEADER>Q :q!<CR>
 noremap <LEADER>R :source $MYVIMRC<CR>
+
+func! IsSaved()
+	if &modified[0] == 1
+	  exec "w"
+	else
+	  echo "No Change"
+	endif
+endfunc
+
 "map <LEADER>R :call CompileBuildrrr()<CR>
 "func! CompileBuildrrr()
 "  exec "w"
@@ -132,7 +145,6 @@ noremap tl :+tabnext<CR>
 noremap <LEADER>? :set splitbelow<CR>:sp<CR>:term<CR>
 "Open a float terminal
 noremap <LEADER>/ :FloatermNew<CR>
-
 "Paste the current path in the end of current line
 noremap <LEADER>pp :r !pwd<CR>kJ
 
@@ -151,6 +163,7 @@ inoremap <C-f> <RIGHT>
 command! Ranger FloatermNew ranger
 command! NNN FloatermNew nnn
 
+noremap \s :%s//g<left><left>
 
 " Compile function
 noremap <LEADER>r :call CompileRunGcc()<CR>
@@ -170,7 +183,7 @@ func! CompileRunGcc()
   elseif &filetype == 'perl'
     :!time perl %
   elseif &filetype == 'ruby'
-    :!time perl %
+    :!time ruby %
   elseif &filetype == 'python'
     set splitbelow
     :split
@@ -182,13 +195,12 @@ func! CompileRunGcc()
     :!time node %
   elseif &filetype == 'html'
     exec "!google-chrome-stable % &"
+  elseif &filetype == 'php'
+    exec "!google-chrome-stable % &"
   elseif &filetype == 'markdown'
     exec "MarkdownPreview"
   endif
 endfunc
-
-"Run the current in the shell
-noremap <LEADER>el :exec '!'.getline('.')<CR>
 
 
 "Solve the problem when input Chinese
@@ -213,15 +225,17 @@ set timeoutlen=1000
 autocmd InsertLeave * call Fcitx2en()
 autocmd InsertEnter * call Fcitx2zh()
 
+"Some other userful map
 "Press space twice to jump to the next '<++>' and edit it
 noremap <LEADER><LEADER> <ESC>/<++><CR>:nohlsearch<CR>c4l
-"Press j twice to jump to the end of the line
-"inoremap jj <ESC>A
-"inoremap kk <ESC>/<++><CR>:nohlsearch<CR>c4l
+"Run the current in the shell
+noremap <LEADER>el :exec '!'.getline('.')<CR>
+noremap <LEADER>m i<!-- more --><ESC>
 
 call plug#begin('~/.config/nvim/plugged')
 
 " Pretty Dress
+"Plug 'theniceboy/eleline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
@@ -238,9 +252,9 @@ Plug 'joelstrouts/swatch.vim'
 Plug 'voldikss/vim-floaterm'
 
 "File navigation
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter' " in <space>cn to comment a line
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf.vim'
 "Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'mcchrish/nnn.vim'
@@ -254,7 +268,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 
 "MarkDown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for' :['markdown', 'vim-plug'] }
@@ -263,6 +277,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 Plug 'reedes/vim-pencil', { 'for' :['markdown', 'vim-plug'] }
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 "AutComplicted
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -283,17 +298,18 @@ Plug 'honza/vim-snippets'
 "language check
 "Plug 'scrooloose/syntastic'
 
-Plug 'junegunn/goyo.vim'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'Chiel92/vim-autoformat'
 Plug 'liuchengxu/vista.vim'
-
+Plug 'godlygeek/tabular' 
+"Plug 'lambdalisue/suda.vim'
 
 "Dependencies
 
 "other userful plug
 Plug 'jiangmiao/auto-pairs'
-"Plug 'easymotion/vim-easymotion'
+Plug 'pechorin/any-jump.vim'
 
 call plug#end()
 
@@ -312,17 +328,11 @@ set background=dark
 let g:airline_theme='wal'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0
-"let g:airline#extensions#tabline#buffer_idx_mode = 1
-"nmap <leader>1 <Plug>AirlineSelectTab1
-"nmap <leader>2 <Plug>AirlineSelectTab2
-"nmap <leader>3 <Plug>AirlineSelectTab3
-"nmap <leader>4 <Plug>AirlineSelectTab4
-"nmap <leader>5 <Plug>AirlineSelectTab5
-"nmap <leader>6 <Plug>AirlineSelectTab6
-"nmap <leader>7 <Plug>AirlineSelectTab7
-"nmap <leader>8 <Plug>AirlineSelectTab8
-"nmap <leader>9 <Plug>AirlineSelectTab9
 
+"===
+"=== eleline
+"===
+"let g:airline_powerline_fonts = 0
 
 "source /home/dreamlocker/.config/nvim/_machine_specific_default.vim
 
@@ -335,34 +345,34 @@ let Tlist_Use_Right_Window = 1
 " ===
 " === NERDTree
 " ===
-map <LEADER>f  :NERDTreeToggle<CR>
-"set the windows on the left
-"let NERDTreeWinPos=1
-let NERDTreeMapOpenExpl = ""
-let NERDTreeMapUpdir = ""
-let NERDTreeMapUpdirKeepOpen = "l"
-let NERDTreeMapOpenSplit = ""
-let NERDTreeOpenVSplit = ""
-let NERDTreeMapActivateNode = "i"
-let NERDTreeMapOpenInTab = "o"
-let NERDTreeMapPreview = ""
-let NERDTreeMapCloseDir = "n"
-let NERDTreeMapChangeRoot = "y"
+"map <LEADER>f  :NERDTreeToggle<CR>
+""set the windows on the left
+""let NERDTreeWinPos=1
+"let NERDTreeMapOpenExpl = ""
+"let NERDTreeMapUpdir = ""
+"let NERDTreeMapUpdirKeepOpen = "l"
+"let NERDTreeMapOpenSplit = ""
+"let NERDTreeOpenVSplit = ""
+"let NERDTreeMapActivateNode = "i"
+"let NERDTreeMapOpenInTab = "o"
+"let NERDTreeMapPreview = ""
+"let NERDTreeMapCloseDir = "n"
+"let NERDTreeMapChangeRoot = "y"
 
 " ==
 " == NERDTree-git
 " ==
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+"let g:NERDTreeIndicatorMapCustom = {
+    "\ "Modified"  : "✹",
+    "\ "Staged"    : "✚",
+    "\ "Untracked" : "✭",
+    "\ "Renamed"   : "➜",
+    "\ "Unmerged"  : "═",
+    "\ "Deleted"   : "✖",
+    "\ "Dirty"     : "✗",
+    "\ "Clean"     : "✔︎",
+    "\ "Unknown"   : "?"
+    "\ }
 
 " ===
 " === coc
@@ -374,7 +384,22 @@ let g:NERDTreeIndicatorMapCustom = {
 silent! au BufEnter * silent! unmap if
 "au TextChangedI * GitGutter
 " Installing plugins
-let g:coc_global_extensions = ['coc-python', 'coc-vimlsp', 'coc-snippets', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-explorer', 'coc-translator']
+let g:coc_global_extensions = [
+	\ 'coc-python',
+	\ 'coc-vimlsp',
+	\ 'coc-snippets',
+	\ 'coc-emmet', 
+	\ 'coc-html',
+	\ 'coc-json',
+	\ 'coc-css',
+	\ 'coc-tsserver',
+	\ 'coc-yank',
+	\ 'coc-lists',
+	\ 'coc-gitignore',
+	\ 'coc-explorer',
+	\ 'coc-translator'
+	\]
+
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -392,42 +417,28 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <LEADER>tt :CocCommand explorer<CR>
-" coc-translator
+nmap <LEADER>f :CocCommand explorer<CR>
 nmap <LEADER>ts <Plug>(coc-translator-p)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> <LEADER>J :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 """
 """===emmet
 """
-let g:user_emmet_mode='n'
-
-"""
-"""===pydiction
-"""
-"let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-"let g:pydiction_menu_height = 5 
-"" complete menu
-"hi Pmenu       ctermfg=green  ctermbg=black guifg=#66D9EF  guibg=#000000
-"hi PmenuSel    ctermfg=green  ctermbg=black                guibg=#808080
-"hi PmenuSbar                                               guibg=#080808
-"hi PmenuThumb                               guifg=#66D9EF
+"let g:user_emmet_mode='n'
 
 " ===
 " === Python-syntax
 " ===
 let g:python_highlight_all = 1
-
-"" ===
-"" ===syntastic
-"" ===
-"set signcolumn=yes
-"highlight SyntasticErrorSign guifg=white guibg=black
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
 
 " ===
 " === MarkdownPreview
@@ -457,9 +468,9 @@ let g:mkdp_page_title = '「${name}」'
 
 source ~/.config/nvim/md-snippets.vim
 
-"
-"===markdownhighlight
-"
+"===
+"=== markdownhightlight
+"===
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1   
 let g:vim_markdown_new_list_item_indent=2
@@ -468,17 +479,42 @@ let g:vim_markdown_new_list_item_indent=2
 "===vim-table-mode
 "===
 map <LEADER>tm :TableModeToggle<CR>
-"===
-"===Goyo
-"===
-noremap gy :Goyo<CR>
-
 
 "===
 "===FZF
 "===
 noremap <LEADER>F :FZF<CR>
 
+" ===
+" === Leaderf
+" ===
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewCode = 1
+let g:Lf_ShowHidden = 1
+let g:Lf_ShowDevIcons = 1
+let g:Lf_PopupPalette = {
+    \  'light': {
+    \      'Lf_hl_match': {
+    \                'gui': 'NONE',
+    \                'font': 'NONE',
+    \                'guifg': 'NONE',
+    \                'guibg': '#303136',
+    \                'cterm': 'NONE',
+    \                'ctermfg': 'NONE',
+    \                'ctermbg': '236'
+    \              },
+    \      'Lf_hl_cursorline': {
+    \                'gui': 'NONE',
+    \                'font': 'NONE',
+    \                'guifg': 'NONE',
+    \                'guibg': '#303136',
+    \                'cterm': 'NONE',
+    \                'ctermfg': 'NONE',
+    \                'ctermbg': '236'
+    \              },
+    \      }
+    \  }
 
 "===
 "===GitGutter
@@ -486,13 +522,18 @@ noremap <LEADER>F :FZF<CR>
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_preview_win_floating = 1
-"highlight SignColumn ctermbg=black
+let g:gitgutter_sign_added = '▎'
+let g:gitgutter_sign_modified = '░'
+let g:gitgutter_sign_removed = '▏'
+let g:gitgutter_sign_removed_first_line = '▔'
+let g:gitgutter_sign_modified_removed = '▒'
 
-autocmd BufWritePost * GitGutter
+"autocmd BufWritePost * GitGutter
 nnoremap <LEADER>gf :GitGutterFold<CR>
 nnoremap <LEADER>H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
+
 "source /home/dreamlocker/.config/nvim/pack/airblade/start/vim-gitgutter/unplace.vim
 
 "===
@@ -584,3 +625,32 @@ let g:pencil#wrapModeDefault = 'soft'
 "=== floaterm
 "===
 let g:floaterm_position = 'bottomright'
+
+"===
+"=== any-jump
+"===
+let g:any_jump_disable_default_keybindings = 1
+let g:any_jump_window_width_ratio  = 0.8
+let g:any_jump_window_height_ratio = 0.9
+
+
+"===
+"=== tabular
+"===
+vmap <LEADER>ga :Tabularize /
+
+"===
+"=== vim-visual-multi
+"===
+let g:VM_leader                     = {'default': ',', 'visual': ',', 'buffer': ','}
+let g:VM_maps                       = {}
+"let g:VM_custom_motions             = {'n': 'h', 'i': 'l', 'u': 'k', 'e': 'j', 'N': '0', 'I': '$', 'h': 'e'}
+let g:VM_maps['Find Under']         = '<C-n>'
+"let g:VM_maps['Find Subword Under'] = '<C-m>'
+
+"===
+"=== sudo.vim
+"===
+"let g:sudo#prefix = 'suda://'
+"noremap <LEADER>w :w suda://%<CR>
+"noremap <LEADER>ee :e suda://%<CR>
