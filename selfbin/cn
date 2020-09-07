@@ -1,0 +1,241 @@
+#!/bin/bash
+path_to_file="/home/dtover/Desktop/Conan.txt"
+# Some avoiding-bug setting
+set -o errexit -o pipefail -o noclobber -o nounset
+! getopt --test > /dev/null
+if [[ ${PIPESTATUS[0]} -ne 4 ]];then
+	echo "Something wrong in this evnironment"
+	exit 1
+fi
+# use the function getopt to handle the parameters
+# short options list
+OPTIONS=aAcf:gGhkKlmn:s:ty
+# long options lst
+LONGOPTS=after_split,after_original,comic,find:,getname_split,getname_original,special:,henji,kid,kudo,longspecial,mainstory,tv,help,year,notify:
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+eval set -- "$PARSED"
+
+function usage ()
+{
+echo "Usage : 
+     cn (-c|-h|-k|-K|-l|-m|-t)[-g|-G|-a|-A|-f|-s|-y] (NUMBERS|STRING)...
+     cn [-n] (NUMBERS)
+
+Options:
+-a, --after
+    print the split version names of the following episodes
+    examples: cn -a 200 30
+    meaning: print the following 30 episodes' name after 200
+-A, --after
+    print the original version names of the following episodes
+-f, --find
+    print the episode which matching the given string
+-g, --getname_split
+    print the split version name of the given episode
+-G, --getname_original
+    print the original version name of the given episode
+-s, --special
+    print the episodes with special charactors
+    optional arguments: Kudo/kudo, Heiji/heiji, KID/kid, TV/tv,FBI/fbi, CIA/cia/, Black/black, Adapted/adapted
+-y, --year
+	print the episodes in given year
+-n, --notify
+	send the next five episodes' names following the given episode
+--help       
+    Display this message"
+}
+
+# Default values
+# '#' means match nothing
+# '.' means match everything
+tv=false
+comic=false
+longspecial=#
+kudo=#
+henji=#
+kid=#
+mainstory=#
+alleps=.
+fbi="F$\|F\/\|\/F"
+cia="C$\|C\/\|\/C"
+black="B$\|B\/\|\/B"
+
+#variable to handle options (-a -A -g -G -y)
+legal_arg=0
+option_arg=""
+#variable to handle options(-f -s)
+option_fns=""
+
+#echo $PARSED
+while true;do
+	case "$1" in
+		-a|--after_split)
+			legal_arg=$(expr $legal_arg + 1)
+			option_arg="a"
+			shift;;
+		-A|--after_original)
+			legal_arg=$(expr $legal_arg + 1)
+			option_arg="A"
+			shift;;
+		-c|--comic)
+			comic=true
+			tv=false
+			shift;;
+		-f|--find)
+			option_fns="f"
+			case "$2" in
+				[a-zA-Z]) echo "You must search for at least two letters !";;
+				*) match="$2";;
+			esac
+			shift 2;;
+		-g|--getname_split)
+			legal_arg=$(expr $legal_arg + 1)
+			option_arg="g"
+			shift;;
+		-G|--getname_original)
+			legal_arg=$(expr $legal_arg + 1)
+			option_arg="G"
+			shift;;
+		-h|--henji)
+			alleps=#
+			henji="X$\|X\/\|\/X"
+			shift;;
+		-k|--kid)
+			alleps=#
+			kid="K$\|K\/\|\/K"
+			shift;;
+		-K|--kudo)
+			alleps=#
+			kudo="S$\|S\/\|\/S"
+			shift;;
+		-l|--longspecial)
+			alleps=#
+			longspecial="★"
+			shift;;
+		-m|--mainstory)
+			alleps=#
+			mainstory=$black$fbi$cia
+			shift;;
+		-n|--notify)
+			option_fns="n"
+			not="$2"
+			shift 2;;
+		-s|--special)
+			option_fns="s"
+			alleps=#
+			case "$2" in
+				tv|TV)alleps=.; tv=true; comic=false;;
+				comic|Comic)alleps=.; comic=true; tv=false;;
+				kid|KID) kid="K$\|K\/\|\/K";;
+				kudo|Kudo) kudo="S$\|S\/\|\/S";;
+				henji|Henji) henji="X$\|X\/\|\/X";;
+				mainstory|Mainstory) mainstory=$black$fbi$cia;;
+				longspecial|Longspecial) longspecial="★";;
+				*) echo "Can not match $2"; exit 1;;
+			esac
+			shift 2;;
+		-t|--tv)
+			tv=true
+			comic=false
+			shift;;
+		-y|--year)
+			option_arg="y"
+			legal_arg=$(expr $legal_arg + 1)
+			shift;;
+		--help)
+			usage
+			break;;
+		--)
+			shift
+			break;;
+		*)
+			usage
+			exit 3;;
+	esac
+done
+
+# Main logical
+# 1. Determine whether the value of variable "legal_arg" is legal(only 0 and 1 is legal)
+# 2. Then set the value of "temp" according to the value of number of parameters, variable "option_arg" and "option_fns"
+
+if [[ $legal_arg > 1 ]];then
+	echo "Wrong format !"
+	usage
+	exit 1
+# Make sure only one in five parameters(-a -A -g -A -y) is received
+elif [[ $legal_arg == 1 ]];then
+	if [[ $# == 2 ]];then
+		# Receive two arguments
+		case "$option_arg" in
+			"a") temp="$(sed -n "/($1)/,/($(expr $1 + $2 - 1))/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)";;
+			"A") temp="$(sed -n $1','$(expr $1 + $2 - 1)'p' $path_to_file | sed '{s/([[:digit:]]\{1,4\})//g}')";;
+			"g") temp="$(sed -n "/($1)/,/($2)/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)";;
+			"G") temp="$(sed -n $1','$2'p' $path_to_file | sed '{s/([[:digit:]]\{1,4\})//g}')";;
+		esac
+	elif [[ $# == 1 ]];then
+		# Receive one argument
+		case "$option_arg" in
+			"g") temp="$(sed -n "/($1)/,/($(expr $1 + 9))/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)";;
+			"G") temp="$(sed -n $1','$(expr $1 + 9)'p' $path_to_file | sed '{s/([[:digit:]]\{1,4\})//g}')";;
+			"y")
+				if [[ "$1" -ge 1996 && "$1" -le $(date "+%Y") ]];then
+					res="$(sed -n "/$1/{s/.*(//g;s/).*//g;p}" $path_to_file)"
+				else
+					echo "This cartoon started to broadcast from 1996 !"
+					exit 0;
+				fi
+				start=${res%%~*}
+				end=${res##*~}
+				if [ -n "$end" ];then
+					temp="$(sed -n $start','$end'p' $path_to_file)"
+				else
+					temp="$(sed -n $start','/-/p $path_to_file)"
+				fi;;
+			"a"|"A")
+				echo "Missing parameter !"
+				usage
+				exit 1;;
+		esac
+	# Receive no arguments
+	elif [[ $# == 0 && $option_arg == "y" ]];then
+		temp="$(sed -n '/1996/,${s/@//g;p}' $path_to_file)"
+	else
+		echo "Missing parameter"
+		usage
+		exit 1;
+	fi
+# Handle the case of no parameters in five (-a -A -g -A -y) input (default: -g option)
+elif [[ $legal_arg == 0 ]];then
+	# The case receive two arguments
+	if [[ $# == 2 ]];then
+		temp="$(sed -n "/($1)/,/($2)/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)"
+	# The case receive one argument
+	elif [[ $# == 1 ]];then
+		temp="$(sed -n "/($1)/,/($(expr $1 + 9))/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)"
+	elif [[ $# == 0 ]];then
+		case "$option_fns" in
+			"f") temp="$(sed -n "/$match/p" $path_to_file)";;
+			"s") temp="$(cat $path_to_file)";;
+			"n") 
+				temp="$(sed -n "/($not)/,/($(expr $not + 5))/{s/)(/,/g;s/\(^[[:digit:]]\{1,4\}\)(//g;s/\([[:digit:]]\{1,4\}\))/\1/g;p}" $path_to_file)"
+				notify-send "$temp"
+				exit 0;;
+			*)
+				usage
+				exit 0;;
+		esac
+	else
+		usage
+		exit 0
+	fi
+fi
+
+# Handle the case of special parameter
+res="$(echo "$temp" | sed -n "/\(${kudo}\|${henji}\|${kid}\|${mainstory}\|${longspecial}\|${alleps}\)/p")"
+if $comic;then
+	echo "$res" | sed '{/◆/d;/@/d;/-/d}'
+elif $tv;then
+	echo "$res" | sed -n '{/◆/p}'
+else
+	echo "$res"
+fi

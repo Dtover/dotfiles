@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "alias dod=\"love $(pwd)\"" >> ~/.zshrc

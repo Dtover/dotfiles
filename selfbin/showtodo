@@ -4,4 +4,8 @@ if [[ -f ~/Desktop/DailyTODO/"$(date '+%m_%d')" ]];then
 		cat ~/Desktop/DailyTODO/"$(date '+%m_%d')"
 	else
 		echo "no list built yet!"
+		echo 
+		echo "PS: Maybe you can: "
+		echo "1. Review on Data Structure and Algorithm"
+		echo "2. Learn Java Framework"
 fi

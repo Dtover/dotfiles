@@ -36,8 +36,8 @@ init_filenames() {
 	fi
 
 	# create folder in ~/.cache/i3lock directory
-	res_folder="$HOME/.cache/i3lock/$1"
-	folder="$HOME/.cache/i3lock/current"
+	res_folder="$HOME/.cache/btlocker_right/$1"
+	folder="$HOME/.cache/btlocker_right/current"
 	echo "Got" "$@" "$res_folder"
 	if [ ! -d "$folder" -o -n "$2" ]; then
 		rm -rf "$folder"

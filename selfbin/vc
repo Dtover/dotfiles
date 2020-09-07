@@ -7,6 +7,7 @@ function change_config()
 	sudo -A cp "${config_path}/config${num}.json" /etc/v2ray/config.json
 	#echo ${config_path}/config${num}.json
 	sudo -A systemctl restart v2ray.service
+	notify-send "config${num}"
 }
 change_config && notify-send "config changed"
 

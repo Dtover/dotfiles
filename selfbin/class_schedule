@@ -6,6 +6,7 @@ minute=$(date +%M)
 h=`expr $hour \* 60`
 time=`expr $h + $minute`
 nums=$(expr $(date +%j) - 47)
+weeknum=$(expr $(expr $nums / 7) + 1)
 
 #8:00 - 9:40 480-580
 #10:10 - 11:50 610-710
@@ -91,25 +92,37 @@ case $day in
 		if [[ $time -lt 480 ]]; then
 			echo "1-2: Compile Principle"
 			echo -ne $NP
-			echo "5-6: Vocational Counsel"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel"
+			fi
 		elif [[ $time -ge 480 && $time -le 580 ]]; then
 			echo "1-2: Compile Principle(in class)"
 			echo -ne $NP
-			echo "5-6: Vocational Counsel"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel"
+			fi
 		elif [[ $time -gt 580 && $time -lt 610 ]]; then
 			echo -ne $NP
-			echo "5-6: Vocational Counsel"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel"
+			fi
 		elif [[ $time -ge 610 && $time -le 710 ]]; then
 			echo -ne $NPI
-			echo "5-6: Vocational Counsel"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel"
+			fi
 		elif [[ $time -gt 710 && $time -lt 810 ]]; then
-			echo "5-6: Vocational Counsel"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel"
+			fi
 		elif [[ $time -ge 810 && $time -le 910 ]]; then
-			echo "5-6: Vocational Counsel(in class)"
+			if [[ $weeknum -gt 12 && $weeknum -lt 15 ]];then
+				echo "5-6: Vocational Counsel(in class)"
+			fi
 		elif [[ $time -gt 910 ]]; then
 			echo "No class following"
 		fi
 		;;
-	*) 	echo "No class today!!!";;
+	*) 	echo "No class today!";;
 esac
 
