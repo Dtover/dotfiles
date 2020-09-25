@@ -1,4 +1,0 @@
-#!/bin/bash
-path=${HOME}/Game/techmino/
-#$path/love11.3_x86_64.AppImage $path/game.love
-love $path/game.love

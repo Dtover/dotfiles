@@ -1,3 +1,0 @@
-#!/bin/bash
-/usr/lib/gsd-xsettings & 2>/dev/null
-sh /opt/deepinwine/tools/run.sh 2>/dev/null
