@@ -159,6 +159,8 @@ inoremap <C-k> <ESC>lC
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
 
+source ${HOME}/.config/nvim/cursor.vim
+
 " Some floaterm short commands
 command! Ranger FloatermNew ranger
 command! NNN FloatermNew nnn
@@ -310,6 +312,9 @@ Plug 'godlygeek/tabular'
 "other userful plug
 Plug 'jiangmiao/auto-pairs'
 Plug 'pechorin/any-jump.vim'
+Plug 'gcmt/wildfire.vim'
+Plug 'tpope/vim-surround'
+Plug 'rhysd/clever-f.vim'
 
 call plug#end()
 
@@ -385,6 +390,7 @@ silent! au BufEnter * silent! unmap if
 "au TextChangedI * GitGutter
 " Installing plugins
 let g:coc_global_extensions = [
+	\ 'coc-actions',
 	\ 'coc-python',
 	\ 'coc-vimlsp',
 	\ 'coc-snippets',
@@ -517,7 +523,7 @@ let g:Lf_PopupPalette = {
     \  }
 
 "===
-"===GitGutter
+"===gitgutter
 "===
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
@@ -539,12 +545,12 @@ nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 "===
 "===Ultisnips
 "===
-inoremap <c-p> <nop>
-inoremap <c-n> <nop>
-let g:UltiSnipsExpandTrigger="<c-n>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/UltiSnips/', 'UltiSnips']
+"inoremap <c-p> <nop>
+"inoremap <c-n> <nop>
+"let g:UltiSnipsExpandTrigger="<c-n>"
+"let g:UltiSnipsJumpForwardTrigger="<c-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+"let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/UltiSnips/', 'UltiSnips']
 
 " ==
 " == vim-multiple-cursor
